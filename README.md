@@ -94,10 +94,21 @@ Các route api/admin yêu cầu phiên quản trị. Route còn lại kiểm tra
 
 ## Chạy bằng PM2
 
+Triển khai chuẩn hiện có ba process PM2:
+
+| Process | Entry point | Biến PM2 |
+| --- | --- | --- |
+| superutils | dist/multi/index.js | MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo |
+| superutils-web | dist/web/index.js | Không cần MULTI_FEATURES |
+| superutils-voice | dist/multi/index.js | MULTI_ROLE=voice, MULTI_FEATURES=voice,voicepool |
+
 ~~~sh
 npm run build
+MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo \
+  pm2 start dist/multi/index.js --name superutils --cwd "$(pwd)"
 pm2 start dist/web/index.js --name superutils-web --cwd "$(pwd)"
-pm2 start dist/multi/index.js --name superutils --cwd "$(pwd)"
+MULTI_ROLE=voice MULTI_FEATURES=voice,voicepool \
+  pm2 start dist/multi/index.js --name superutils-voice --cwd "$(pwd)"
 pm2 save
 pm2 status
 ~~~
@@ -106,12 +117,13 @@ Sau khi thay đổi .env hoặc build mới:
 
 ~~~sh
 npm run build
-pm2 restart superutils-web --update-env
 pm2 restart superutils --update-env
+pm2 restart superutils-web --update-env
+pm2 restart superutils-voice --update-env
 pm2 save
 ~~~
 
-Nếu chỉ vận hành web, không cần khởi động superutils. Process không tự nhận mã đã build lại cho đến khi restart.
+Nếu chỉ vận hành web, chỉ khởi động superutils-web. Process không tự nhận mã đã build lại cho đến khi restart.
 
 ## Dữ liệu runtime
 
