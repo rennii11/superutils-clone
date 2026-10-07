@@ -55,5 +55,3 @@ pm2 save
 | `superutils` | `dist/multi/index.js` | Worker đa tính năng |
 | `superutils-web` | `dist/web/index.js` | Web server |
 | `superutils-voice` | `dist/multi/index.js` | Worker voice |
-
-Repository sạch không chứa `accounts/`, `accounts-disabled/`, `stream-users/`, token hoặc dữ liệu người dùng. Vì vậy chỉ `superutils-web` có lệnh khởi chạy trong hướng dẫn này.
