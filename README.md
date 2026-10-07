@@ -38,27 +38,34 @@ npm run build
 
 Điền các biến cần thiết trong .env. Giữ .env, token, database và dữ liệu tài khoản ngoài git.
 
-## Biến môi trường
+## Cấu hình môi trường
 
-Không phải mọi biến đều bắt buộc cho mọi entry point. Danh sách giá trị mẫu nằm trong .env.example.
+Tệp .env của triển khai gốc /root/superutils có đúng các biến dưới đây; .env.example trong repository trùng danh sách này. Bản sao /root/superutils-clean hiện chưa có .env.
 
-| Nhóm | Biến | Mục đích |
+| Nhóm | Biến có trong .env | Mục đích |
 | --- | --- | --- |
-| Web | WEB_HOST, WEB_PORT, WEB_ASSET_DIR | Máy chủ web; mặc định 127.0.0.1:3210 và asset src/web |
+| Web | WEB_HOST, WEB_PORT | Địa chỉ lắng nghe web |
 | OAuth | DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI | Đăng nhập Discord OAuth |
-| Bot/quyền | BOT_TOKEN, ADMIN_IDS, ADMIN_USER_ID | Tích hợp bot và quyền quản trị |
-| Dữ liệu | MULTI_CONFIG_DIR, DISABLED_CONFIG_DIR, MEDIA_ROOT_DIR, STREAM_CONFIG_DIR, BILLING_DB_FILE, SESSION_DB_FILE | Vị trí dữ liệu runtime |
-| Public media | MEDIA_BASE_URL | URL gốc của media công khai |
+| Bot/quyền | BOT_TOKEN, ADMIN_IDS | Tích hợp bot và quyền quản trị |
+| Media | MEDIA_BASE_URL | URL gốc của media công khai |
 | Mã hóa | TOKEN_ENCRYPTION_KEY | Khóa mã hóa token lưu cục bộ |
 | SePay | SEPAY_API_TOKEN, SEPAY_BANK_NAME, SEPAY_BANK_ACCOUNT, SEPAY_BANK_ACCOUNT_NAME, SEPAY_QR_BASE_URL, SEPAY_POLL_LOOKBACK_DAYS, SEPAY_QR_EXPIRES_MINUTES, SEPAY_ACCOUNT_NUMBER | QR và đối soát SePay |
 | Card2K | CARD2K_PARTNER_ID, CARD2K_PARTNER_KEY, CARD2K_CALLBACK_URL | Nạp thẻ; callback phải dùng HTTPS |
 | Spotify | SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET | Tìm metadata nhạc |
 | Thông báo | DISCORD_WEBHOOK_URL | Webhook thông báo dịch vụ |
-| RPC | CONFIG_PATH, DISCORD_SCENE_APPLICATION_IDS, KOYEB_PUBLIC_DOMAIN, KOYEB_HEALTH_CHECK | Rich Presence chạy độc lập |
-| Stream | STREAM_CONFIG_PATH, STREAM_TOKEN_PATH, STREAM_OWNER_ID, YT_DLP_PATH | Stream chạy độc lập |
+| Rich Presence | CONFIG_PATH, DISCORD_SCENE_APPLICATION_IDS | Scene và application ID |
 
-Mặc định: MULTI_CONFIG_DIR=accounts, DISABLED_CONFIG_DIR=accounts-disabled, MEDIA_ROOT_DIR=media, STREAM_CONFIG_DIR=stream-users, BILLING_DB_FILE=billing.sqlite, SESSION_DB_FILE=sessions.sqlite, CONFIG_PATH=scene.json.
+Các biến sau được mã nguồn đọc nhưng không nằm trong .env hiện tại. Chúng chỉ là tham số runtime/PM2 khi cần, không phải biến cần thêm vào tệp .env chuẩn:
 
+| Nhóm | Biến runtime |
+| --- | --- |
+| Điều phối multi | MULTI_FEATURES, MULTI_ROLE, MULTI_CONFIG_DIR, DISABLED_CONFIG_DIR, MEDIA_ROOT_DIR, STREAM_CONFIG_DIR, BILLING_DB_FILE |
+| Web runtime | SESSION_DB_FILE, WEB_ASSET_DIR, ADMIN_USER_ID |
+| Stream | STREAM_CONFIG_PATH, STREAM_TOKEN_PATH, STREAM_OWNER_ID, YT_DLP_PATH |
+| Rich Presence bổ sung | KOYEB_PUBLIC_DOMAIN, KOYEB_HEALTH_CHECK |
+| Hệ thống | CHROME_PATH |
+
+Mặc định trong mã: WEB_HOST=127.0.0.1, WEB_PORT=3210, CONFIG_PATH=scene.json; đường dẫn multi tương ứng là accounts, accounts-disabled, media và stream-users.
 ## Lệnh npm
 
 | Lệnh | Thực hiện |
