@@ -3163,13 +3163,6 @@ select{appearance:none;-webkit-appearance:none;padding:12px 42px 12px 14px!impor
 
 
 
-/* OwO actions match account-name ink; save control is borderless. */
-#page-owo [id$="Toggle"]{color:var(--dash-ink)!important}
-#page-owo .owo-stack{display:grid;grid-template-columns:minmax(0,720px);gap:16px;align-items:start}
-#page-owo .owo-command-card{padding:18px;border:1px solid var(--dash-line,var(--line));border-radius:12px;background:var(--dash-surface,var(--surface-raised))}
-#page-owo .owo-command-card h2{margin:0 0 16px;font:700 20px "Be Vietnam Pro",sans-serif;color:var(--dash-ink,var(--ink))}
-#page-owo .owo-slot-stats{width:100%;margin:14px 0;border-collapse:collapse;font-size:14px}#page-owo .owo-slot-stats caption{text-align:left;margin-bottom:7px;font-weight:700}#page-owo .owo-slot-stats th,#page-owo .owo-slot-stats td{padding:8px;border:1px solid var(--dash-line,var(--line));text-align:left}#page-owo .owo-slot-stats th{color:var(--dash-muted,var(--muted));font-weight:600}#page-owo .owo-slot-stats td{font-weight:700}
-@media(max-width:540px){#page-owo .owo-command-card{padding:14px}}
 
 /* Boot markup reuses the visible account-home card hierarchy. */
 html[data-booting] .shell{visibility:visible}html[data-booting] #page-main>:not(.account-home),html[data-booting] .account-home-intro>*,html[data-booting] .account-home-profile>*,html[data-booting] .account-home-status>*{visibility:hidden!important}html[data-booting] .account-home{position:relative}html[data-booting] .boot-screen{display:none!important}#boneyardOverlay{position:absolute;inset:0;z-index:1;pointer-events:none}#boneyardOverlay,#boneyardOverlay *{visibility:visible!important}#boneyardOverlay .boneyard{overflow:hidden}.boot-screen .boneyard-bone{box-shadow:none!important}
@@ -3221,11 +3214,6 @@ html[data-booting][data-boot-page="config"] #page-config{position:relative}html[
 #page-config .scene-display-mode input{flex:0 0 16px;width:16px;height:16px;margin:1px 0 0;accent-color:var(--dash-accent-text)}
 #page-config .scene-display-mode label:focus-within{outline:2px solid var(--dash-accent-text);outline-offset:2px}
 
-#page-owo .owo-command-list{display:grid;border:1px solid var(--dash-line);border-radius:10px;overflow:hidden}
-#page-owo .owo-command-list .owo-command-switch{display:grid;width:100%;grid-template-columns:minmax(0,1fr) 40px;align-items:center;gap:12px;padding:11px 14px;margin:0!important;color:var(--dash-ink);text-transform:none;letter-spacing:0}
-#page-owo .owo-command-switch+.owo-command-switch{border-top:1px solid var(--dash-line)}
-#page-owo .owo-command-name{min-width:0;overflow-wrap:anywhere}
-#page-owo .owo-command-switch .mention-switch-track{grid-column:2}
 
 #page-config .config-slot-rail,[data-slot-switcher] .config-slot-rail{grid-template-columns:minmax(0,1fr)!important}
 [data-slot-switcher]>span{display:none!important}
@@ -3245,7 +3233,6 @@ html[data-booting][data-boot-page="config"] #page-config{position:relative}html[
 #page-status>h1{max-width:none!important;margin:0 0 26px!important;font-size:28px!important;line-height:1!important;letter-spacing:-.04em!important}
 #page-stream .save-control{display:inline-block}
 
-#billingStatus,#depositMessage,#streamMessage,#adminBillingMessage,#owoMessage,#questMessage:not([data-state="unavailable"]){display:none!important}
 .dashboard-toast:empty{display:none}
 .dashboard-toast:not(:empty){
   position:fixed;top:max(80px,calc(env(safe-area-inset-top) + 16px));right:16px;z-index:2000;

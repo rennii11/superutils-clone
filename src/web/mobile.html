@@ -38,7 +38,6 @@
         <a href="/dashboard" data-page="chatpool">Multi Chat</a>
         <a href="/dashboard" data-page="stream">Stream</a>
         <a href="/dashboard" data-page="quest">Quest</a>
-        <a href="/dashboard" data-page="owo">OwO</a>
         <a href="/dashboard" data-page="api">Placeholder</a>
         <a href="/dashboard" data-page="plan" id="planTab" hidden>Quản lý gói</a>
         <a href="/dashboard" data-page="deposit" id="depositTab" hidden>Nạp tiền</a>
@@ -468,51 +467,6 @@ text 3</textarea></label>
         </section>
       </div>
     </section>
-    <section class="page" id="page-owo">
-      <div class="config-slot-switcher" data-slot-switcher hidden>
-        <label><select data-slot-select aria-label="Chọn token"></select></label>
-        <span>Mỗi slot dùng một cấu hình OwO riêng.</span>
-      </div>
-      <div class="owo-stack">
-        <section class="owo-command-card owo-channel-card">
-          <h2>Kênh OwO</h2>
-          <label>Guild<div class="guild-select-control"><span class="guild-avatar" data-guild-avatar="owo" aria-hidden="true"><span class="guild-avatar-fallback"></span><img alt=""></span><select id="owoGuild" aria-label="Chọn guild OwO" disabled><option value="">Đang tải token...</option></select></div></label>
-          <label>Text channel<select id="owoChannel" aria-label="Chọn Text channel OwO" disabled><option value="">Chọn guild trước</option></select></label>
-          <div class="actions"><button id="owoChannelSave" type="button">Lưu kênh</button></div>
-        </section>
-        <section class="owo-command-card owo-cash-card">
-          <h2>Số dư</h2>
-          <p class="billing-note">Số dư: <strong id="owoCashBalance">Chưa tải</strong></p>
-          <div class="actions"><button id="owoCash" type="button">Xem số dư</button></div>
-        </section>
-        <section class="owo-command-card">
-          <h2>Hunt &amp; Battle</h2>
-          <div class="owo-command-list">
-          <label class="mention-switch owo-command-switch"><span class="owo-command-name">Hunt</span><input id="owoHunt" type="checkbox" checked><span class="mention-switch-track" aria-hidden="true"></span></label>
-          <label class="mention-switch owo-command-switch"><span class="owo-command-name">Battle</span><input id="owoBattle" type="checkbox" checked><span class="mention-switch-track" aria-hidden="true"></span></label>
-          </div>
-          <div class="actions"><button id="owoHuntBattleSave" type="button">Lưu</button><button class="feature-toggle" id="owoHuntBattleToggle" type="button" disabled>Tắt chức năng</button></div>
-        </section>
-        <section class="owo-command-card">
-          <h2>Slot</h2>
-          <label>Tiền cược<input id="owoSlotStake" type="number" min="1" max="250000" step="1" inputmode="numeric" placeholder="Ví dụ: 100"></label>
-          <table class="owo-slot-stats"><caption>Thống kê Slot</caption><tbody><tr><th>Thắng</th><td id="owoSlotWins">0</td><th>Thua</th><td id="owoSlotLosses">0</td></tr><tr><th>Đã ăn</th><td id="owoSlotWon">0</td><th>Đã thua</th><td id="owoSlotLost">0</td></tr></tbody></table>
-          <table class="owo-slot-stats owo-slot-payout"><caption>Payout Slot</caption><tbody><tr><th>Cà tím</th><td>1x</td><th>Tim</th><td>2x</td></tr><tr><th>Cherry</th><td>3x</td><th>Cowoncy</th><td>4x</td></tr><tr><th>OwO</th><td colspan="3">10x</td></tr></tbody></table>
-          <div class="actions"><button id="owoSlotSave" type="button">Lưu cược</button><button class="feature-toggle" id="owoSlotToggle" type="button" disabled>Tắt chức năng</button></div>
-        </section>
-        <section class="owo-command-card">
-          <h2>Lệnh khác</h2>
-          <div id="owoExtraCommands" class="owo-command-list">
-          <label class="mention-switch owo-command-switch"><span class="owo-command-name">Pup</span><input id="owoPup" type="checkbox"><span class="mention-switch-track" aria-hidden="true"></span></label>
-          <label class="mention-switch owo-command-switch"><span class="owo-command-name">Piku</span><input id="owoPiku" type="checkbox"><span class="mention-switch-track" aria-hidden="true"></span></label>
-          <label class="mention-switch owo-command-switch"><span class="owo-command-name">Run</span><input id="owoRun" type="checkbox"><span class="mention-switch-track" aria-hidden="true"></span></label>
-          <label class="mention-switch owo-command-switch"><span class="owo-command-name">Army</span><input id="owoArmy" type="checkbox"><span class="mention-switch-track" aria-hidden="true"></span></label>
-          </div>
-          <div class="actions"><button id="owoExtraSave" type="button">Lưu</button><button class="feature-toggle" id="owoExtraToggle" type="button" disabled>Tắt chức năng</button></div>
-        </section>
-        <p class="billing-note" id="owoMessage" role="status" aria-live="polite"></p>
-      </div>
-    </section>
     <section class="page" id="page-api">
       <h1>Placeholder API</h1>
       <div class="api-info" id="apiInfo">
@@ -609,7 +563,7 @@ text 3</textarea></label>
     </script>
     <script src="/mention-log.js"></script>
     <script src="/dashboard-boneyard.js"></script>
-    <script src="/app.js?v=owo-groups-1"></script>
+    <script src="/app.js?v=dashboard-1"></script>
   <script>
     document.addEventListener('click', event => {
       const menu = document.querySelector('.topbar.mobile-dock')

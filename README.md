@@ -11,7 +11,7 @@ Superutils-clone là dịch vụ Node.js gồm web dashboard, quản lý dữ li
 | Rich Presence | dist/rpc/index.js | Chạy Rich Presence theo scene |
 | Voice / Voicepool | dist/voice/index.js, dist/voicepool/index.js | Kết nối voice đơn và nhóm |
 | Chat / mention | dist/chat/index.js, dist/mention/index.js | Worker chat và phản hồi mention |
-| Status / OwO / stream | dist/status/index.js, dist/owo/index.js, dist/stream/index.js | Các worker trạng thái, OwO và stream |
+| Status / stream | dist/status/index.js, dist/stream/index.js | Các worker trạng thái và stream |
 | Quest | dist/quest/index.js | Được dashboard kích hoạt qua API quest |
 
 Worker ngoài web được multi khởi tạo từ dữ liệu trong MULTI_CONFIG_DIR. Không lưu token Discord vào README, git, log hoặc URL.
@@ -75,13 +75,13 @@ Cấu hình đề xuất sử dụng ba process PM2 độc lập:
 
 | Process | Entry point | Biến PM2 |
 | --- | --- | --- |
-| superutils-clone | dist/multi/index.js | MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo |
+| superutils-clone | dist/multi/index.js | MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status |
 | superutils-clone-web | dist/web/index.js | Không cần MULTI_FEATURES |
 | superutils-clone-voice | dist/multi/index.js | MULTI_ROLE=voice, MULTI_FEATURES=voice,voicepool |
 
 ~~~sh
 npm run build
-MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo \
+MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status \
   pm2 start dist/multi/index.js --name superutils-clone --cwd "$(pwd)"
 pm2 start dist/web/index.js --name superutils-clone-web --cwd "$(pwd)"
 MULTI_ROLE=voice MULTI_FEATURES=voice,voicepool \

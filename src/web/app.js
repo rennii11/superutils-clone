@@ -23,10 +23,6 @@
           if ($('page-stream').classList.contains('active')) void loadStream()
           return
         }
-        if (file === 'owo-status') {
-          if ($('page-owo').classList.contains('active')) void loadOwo(true)
-          return
-        }
         if (file === 'billing-status') {
           void loadBilling()
           return
@@ -236,8 +232,8 @@
       '{emoji:time}': ['Emoji theo buổi trong ngày.', 'Ví dụ: 🌙'],
       '{emoji:clock}': ['Emoji đồng hồ theo giờ.', 'Ví dụ: 🕕']
     }
-    const gated=['config','voice','voicepool','chat','mention','chatpool','status','stream','owo']
-    const gatedFeatureNames={config:'Rich Presence',voice:'Voice',voicepool:'Multi Voice',chat:'Auto Chat',mention:'Auto Reply',chatpool:'Multi Chat',status:'Status',stream:'Stream',owo:'OwO'}
+    const gated=['config','voice','voicepool','chat','mention','chatpool','status','stream']
+    const gatedFeatureNames={config:'Rich Presence',voice:'Voice',voicepool:'Multi Voice',chat:'Auto Chat',mention:'Auto Reply',chatpool:'Multi Chat',status:'Status',stream:'Stream'}
     const hidden=['media','api']
     let freeFeatureLocked = false
     let voicepoolPageEnabled = false
@@ -277,14 +273,14 @@
         root.append(gate)
       }
     }
-    const dashboardRoutes = {main:'/dashboard',config:'/dashboard/rpc',media:'/dashboard/media',status:'/dashboard/status',voice:'/dashboard/voice',voicepool:'/dashboard/voicepool',chat:'/dashboard/chat',mention:'/dashboard/mention',chatpool:'/dashboard/chatpool',stream:'/dashboard/stream',quest:'/dashboard/quest',owo:'/dashboard/owo',api:'/dashboard/api',plan:'/dashboard/plan',deposit:'/dashboard/deposit',admin:'/dashboard/admin'}
+    const dashboardRoutes = {main:'/dashboard',config:'/dashboard/rpc',media:'/dashboard/media',status:'/dashboard/status',voice:'/dashboard/voice',voicepool:'/dashboard/voicepool',chat:'/dashboard/chat',mention:'/dashboard/mention',chatpool:'/dashboard/chatpool',stream:'/dashboard/stream',quest:'/dashboard/quest',api:'/dashboard/api',plan:'/dashboard/plan',deposit:'/dashboard/deposit',admin:'/dashboard/admin'}
     let dashboardAccessReady = false
     function showPage(name) {
       if (document.documentElement.hasAttribute('data-booting') && name !== (window.dashboardBootPage || 'main')) return
       closePreview()
       const requested = dashboardAccessReady && name === "admin" && document.getElementById("adminTab").hidden ? "main" : dashboardAccessReady && name === "plan" && document.getElementById("planTab").hidden ? "main" : dashboardAccessReady && name === "deposit" && document.getElementById("depositTab").hidden ? "main" : dashboardAccessReady && name === "voicepool" && !voicepoolPageEnabled ? "main" : name
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'))
-      const page = requested === 'media' ? 'media' : requested === 'api' ? 'api' : requested === 'plan' ? 'plan' : requested === 'deposit' ? 'deposit' : requested === 'main' ? 'main' : requested === 'admin' ? 'admin' : requested === 'stream' ? 'stream' : requested === 'quest' ? 'quest' : requested === 'owo' ? 'owo' : requested === 'voicepool' ? 'voicepool' : requested === 'voice' ? 'voice' : requested === 'chat' ? 'chat' : requested === 'mention' ? 'mention' : requested === 'chatpool' ? 'chatpool' : requested === 'status' ? 'status' : 'config'
+      const page = requested === 'media' ? 'media' : requested === 'api' ? 'api' : requested === 'plan' ? 'plan' : requested === 'deposit' ? 'deposit' : requested === 'main' ? 'main' : requested === 'admin' ? 'admin' : requested === 'stream' ? 'stream' : requested === 'quest' ? 'quest' : requested === 'voicepool' ? 'voicepool' : requested === 'voice' ? 'voice' : requested === 'chat' ? 'chat' : requested === 'mention' ? 'mention' : requested === 'chatpool' ? 'chatpool' : requested === 'status' ? 'status' : 'config'
       $('page-' + page).classList.add('active')
       document.body.classList.toggle('config-page', page === 'config')
       document.body.classList.toggle('main-page', page === 'main')
@@ -331,7 +327,6 @@
       const page = link.dataset.page
       showPage(page)
       if (freeFeatureLocked&&gated.includes(page)) { closeMobileMenu(); return }
-      if (page === 'owo') void loadOwo()
       if (page === 'media') void loadMediaGallery()
       if (page === 'quest') void loadQuest()
       if (page === 'stream') void loadStream()
@@ -371,10 +366,9 @@
     let statusProfilePreviewTimer = null
     const discordSelectorState = {
       chat: {sequence:0, guilds:[], guildId:"", channelId:""},
-      owo: {sequence:0, guilds:[], guildId:"", channelId:""},
       voice: {sequence:0, guilds:[], guildId:"", channelId:""}
     }
-    function discordSelectorIds(mode) { if (mode === "voice") return ["voiceGuild", "voiceChannel"]; if (mode.startsWith("owo")) return [mode + "Guild", mode + "Channel"]; return ["chatGuild", "chatChannel"] }
+    function discordSelectorIds(mode) { if (mode === "voice") return ["voiceGuild", "voiceChannel"]; return ["chatGuild", "chatChannel"] }
     function discordTarget() {
       if (typeof configSlotMode !== 'undefined' && configSlotMode) return linkedSlotId ? configSlotTarget() : null
       return linkedUser ? {user:linkedUser,...(linkedLocation === 'disabled' ? {location:'disabled'} : {})} : null
@@ -437,7 +431,7 @@
       const target=discordTarget()
       if (!target) return
       renderDiscordChannelLoading(mode)
-      const query=new URLSearchParams({...target,mode:mode.startsWith("owo") ? "chat" : mode,guildId}).toString()
+      const query=new URLSearchParams({...target,mode,guildId}).toString()
       const response=await fetchDiscordDirectory(query)
       if (sequence !== state.sequence) return
       if (!response?.ok) { renderDiscordFallback(mode,guildId,preferredChannel,"Không tải được guild"); return }
@@ -455,7 +449,7 @@
       $(guildSelectId).disabled=true;$(channelSelectId).disabled=true
       $(guildSelectId).replaceChildren(new Option("Đang tải guild…", ""))
       $(channelSelectId).replaceChildren(new Option("Chọn guild trước", ""))
-      const query=new URLSearchParams({...target,mode:mode.startsWith("owo") ? "chat" : mode}).toString()
+      const query=new URLSearchParams({...target,mode}).toString()
       const response=await fetchDiscordDirectory(query)
       if (sequence !== state.sequence) return
       if (!response?.ok) { renderDiscordFallback(mode,preferredGuild,preferredChannel,"Không tải được guild"); return }
@@ -468,10 +462,10 @@
     }
     function initDiscordSelectors(mode) {
       const [guildId,channelId]=discordSelectorIds(mode)
-      $(guildId).onchange=()=>{const value=$(guildId).value;renderGuildAvatar(mode,value);void loadDiscordGuildChannels(mode,value,"");mode === "voice" ? buildVoice() : mode === "chat" ? buildChat() : (owoFormTouched = true)}
-      $(channelId).onchange=()=>{discordSelectorState[mode].channelId=$(channelId).value;mode === "voice" ? buildVoice() : mode === "chat" ? buildChat() : (owoFormTouched = true)}
+      $(guildId).onchange=()=>{const value=$(guildId).value;renderGuildAvatar(mode,value);void loadDiscordGuildChannels(mode,value,"");if(mode === "voice")buildVoice();else if(mode === "chat")buildChat()}
+      $(channelId).onchange=()=>{discordSelectorState[mode].channelId=$(channelId).value;if(mode === "voice")buildVoice();else if(mode === "chat")buildChat()}
     }
-    initDiscordSelectors("chat");initDiscordSelectors("voice");initDiscordSelectors("owo")
+    initDiscordSelectors("chat");initDiscordSelectors("voice")
     function validate(data) {
       const errors = []
       if (!data.setup.city) errors.push('Thiếu thành phố/tỉnh.')
@@ -2127,7 +2121,6 @@
       if (adminTokenBoxSync) adminTokenBoxSync()
       await loadConfigs()
       await loadQuest()
-      await loadOwo()
     }
     function configSlotTarget() {
       return linkedOwnerId ? {slotId: linkedSlotId, ownerId: linkedOwnerId} : {slotId: linkedSlotId}
@@ -2303,84 +2296,6 @@
     setInterval(() => {
       if (questLinked && $('page-quest').classList.contains('active') && !questPending) void loadQuest(true)
     }, 4000)
-    let owoLoadSequence = 0, owoPending = false, owoFormTouched = false, owoTargetKey = "", owoSavedConfig = null
-    const owoTargetCommands = ["kiss","hug","slap","stare","kill","hold","pats","wave","boop","poke","pat","nom","cuddle","highfive","greet","punch"]
-    const owoGroups = { huntBattle:{commands:["hunt","battle"]}, slot:{commands:["slot"]}, extra:{commands:["pup","piku","run","army",...owoTargetCommands]} }
-    const owoControl = command => "owo" + command[0].toUpperCase() + command.slice(1)
-    function renderOwoExtraCommands() {
-      const root = $("owoExtraCommands")
-      for (const command of owoTargetCommands) { const label=document.createElement("label"),input=document.createElement("input"); input.id=owoControl(command);input.type="checkbox";label.className="mention-switch owo-command-switch";const name=document.createElement("span");name.className="owo-command-name";name.textContent=command[0].toUpperCase()+command.slice(1)+" @OwO";const track=document.createElement("span");track.className="mention-switch-track";track.setAttribute("aria-hidden","true");label.append(name,input,track);root.append(label) }
-    }
-    renderOwoExtraCommands()
-    function owoTarget() { return configSlotMode && linkedSlotId && linkedLocation !== "disabled" ? configSlotTarget() : null }
-    function normalizedOwo(config) {
-      const legacy = config?.groups ? null : config
-      const groups = {}
-      for (const [name, group] of Object.entries(owoGroups)) {
-        const current=config?.groups?.[name] || {}
-        groups[name]={enabled:current.enabled ?? Boolean(legacy?.enabled),guildId:current.guildId || legacy?.guildId || "",channelId:current.channelId || legacy?.channelId || "",commands:Object.fromEntries(group.commands.map(command=>[command,current.commands?.[command] ?? legacy?.commands?.[command] ?? (command==="hunt"||command==="battle"||command==="slot")])),...(name==="slot"?{slotStake:current.slotStake ?? legacy?.slotStake ?? 100}: {})}
-      }
-      const currentCash=config?.cash || {}
-      const channel=Object.values(groups).find(group=>group.channelId) || currentCash
-      return {enabled:config?.enabled===true,groups,cash:{guildId:currentCash.guildId || "",channelId:currentCash.channelId || ""},guildId:channel.guildId || "",channelId:channel.channelId || ""}
-    }
-    function setOwoAvailability(usable, message="") {
-      for (const [name,group] of Object.entries(owoGroups)) {
-        for (const command of group.commands) { const control=$(owoControl(command));if(control)control.disabled=!usable||owoPending }
-        $("owo"+name[0].toUpperCase()+name.slice(1)+"Save").disabled=!usable||owoPending;$("owo"+name[0].toUpperCase()+name.slice(1)+"Toggle").disabled=!usable||owoPending
-      }
-      $("owoGuild").disabled=!usable||owoPending;$("owoChannel").disabled=!usable||owoPending;$("owoChannelSave").disabled=!usable||owoPending;$("owoCash").disabled=!usable||owoPending;$("owoSlotStake").disabled=!usable||owoPending
-      if (!usable) $("owoMessage").textContent=message
-    }
-    function syncOwoToggle(name) { const group=owoSavedConfig?.groups?.[name],button=$("owo"+name[0].toUpperCase()+name.slice(1)+"Toggle"),enabled=group?.enabled===true;button.dataset.state=enabled?"enabled":"disabled";button.textContent=enabled?"Tắt chức năng":"Bật chức năng" }
-    function renderOwo(data, preserve=false) {
-      const config=normalizedOwo(data?.config),status=data?.status||{}
-      owoSavedConfig=config
-      if (!preserve) { for (const [name, group] of Object.entries(owoGroups)) { const current=config.groups[name];if(name==="slot")$("owoSlotStake").value=String(current.slotStake);for(const command of group.commands) { const control=$(owoControl(command));if(control)control.checked=current.commands[command]===true } };$("owoGuild").value=config.guildId;$("owoChannel").value=config.channelId;void loadDiscordSelectors("owo",config.guildId,config.channelId) }
-      const slotStats=status.slot||{},slotStat=value=>Number.isSafeInteger(value)&&value>=0?value:0,slotNumber=value=>new Intl.NumberFormat("vi-VN").format(slotStat(value))
-      $("owoSlotWins").textContent=slotNumber(slotStats.wins);$("owoSlotLosses").textContent=slotNumber(slotStats.losses);$("owoSlotWon").textContent=slotNumber(slotStats.won);$("owoSlotLost").textContent=slotNumber(slotStats.lost)
-      for(const name of Object.keys(owoGroups))syncOwoToggle(name);setOwoAvailability(true)
-    }
-    async function loadOwo(silent=false) {
-      const target=owoTarget();if(!target){setOwoAvailability(false,"Chưa có slot để dùng OwO.");return}
-      const key=JSON.stringify(target),sequence=++owoLoadSequence;if(key!==owoTargetKey){owoTargetKey=key;owoFormTouched=false}
-      if(!silent) $("owoMessage").textContent="Đang tải OwO..."
-      try { const response=await fetch("/api/owo?"+new URLSearchParams(target),{credentials:"same-origin",cache:"no-store"}),data=await response.json().catch(()=>({}));if(sequence!==owoLoadSequence)return;if(!response.ok)throw new Error(data.error||"Không thể tải OwO.");renderOwo(data,owoFormTouched);if(!silent)$("owoMessage").textContent="" } catch(error) { if(sequence!==owoLoadSequence)return;setOwoAvailability(false,error instanceof Error?error.message:"Không thể tải OwO.") }
-    }
-    function owoGroupPayload(name) {
-      const group=owoGroups[name],commands=Object.fromEntries(group.commands.map(command=>[command,command==="slot"?true:$(owoControl(command)).checked])),slotStake=name==="slot"?Number($("owoSlotStake").value):undefined
-      return {enabled:owoSavedConfig?.groups?.[name]?.enabled===true,guildId:$("owoGuild").value.trim(),channelId:$("owoChannel").value.trim(),commands,...(name==="slot"?{slotStake}:{})}
-    }
-    function owoChannelReady() {
-      const ready=/^\d{17,20}$/.test($("owoGuild").value) && /^\d{17,20}$/.test($("owoChannel").value)
-      if (!ready) $("owoMessage").textContent="Chọn Guild và Text channel trong card Kênh OwO trước."
-      return ready
-    }
-    async function saveOwoGroup(name, success="Đã lưu.") {
-      const target=owoTarget();if(!target||owoPending||!owoSavedConfig||!owoChannelReady())return;owoPending=true;setOwoAvailability(true);$("owoMessage").textContent="Đang lưu OwO..."
-      const group=owoGroupPayload(name);if(name==="slot"&&(!Number.isSafeInteger(group.slotStake)||group.slotStake<1||group.slotStake>250000)){$("owoMessage").textContent="Tiền cược phải là số nguyên từ 1 đến 250.000.";owoPending=false;setOwoAvailability(Boolean(owoTarget()));return}const groups=structuredClone(owoSavedConfig.groups);groups[name]=group;const payload=owoSharedPayload(groups)
-      try { const response=await fetch("/api/owo?"+new URLSearchParams(target),{method:"PUT",headers:{"content-type":"application/json"},credentials:"same-origin",body:JSON.stringify(payload)}),data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Không thể lưu OwO.");owoSavedConfig=normalizedOwo(data.config);syncOwoToggle(name);$("owoMessage").textContent=success } catch(error) { $("owoMessage").textContent=error instanceof Error?error.message:"Không thể lưu OwO." } finally { owoPending=false;setOwoAvailability(Boolean(owoTarget())) }
-    }
-    async function toggleOwoGroup(name) { if(!owoSavedConfig||!owoChannelReady())return;owoSavedConfig.groups[name].enabled=!owoSavedConfig.groups[name].enabled;syncOwoToggle(name);await saveOwoGroup(name,owoSavedConfig.groups[name].enabled?"Đã bật.":"Đã tắt.") }
-    function owoSharedPayload(groups) {
-      const guildId=$("owoGuild").value.trim(),channelId=$("owoChannel").value.trim()
-      for (const group of Object.values(groups)) { group.guildId=guildId;group.channelId=channelId }
-      return {enabled:Object.values(groups).some(group=>group.enabled&&Object.values(group.commands).some(Boolean)),groups,cash:{guildId,channelId}}
-    }
-    async function saveOwoChannel() {
-      const target=owoTarget();if(!target||owoPending||!owoSavedConfig||!owoChannelReady())return;owoPending=true;setOwoAvailability(true);$("owoMessage").textContent="Đang lưu kênh..."
-      const payload=owoSharedPayload(structuredClone(owoSavedConfig.groups))
-      try { const response=await fetch("/api/owo?"+new URLSearchParams(target),{method:"PUT",headers:{"content-type":"application/json"},credentials:"same-origin",body:JSON.stringify(payload)}),data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Không thể lưu kênh.");owoSavedConfig=normalizedOwo(data.config);$("owoMessage").textContent="Đã lưu kênh cho tất cả chức năng OwO." } catch(error) { $("owoMessage").textContent=error instanceof Error?error.message:"Không thể lưu kênh." } finally { owoPending=false;setOwoAvailability(Boolean(owoTarget())) }
-    }
-    async function loadOwoCash() {
-      const target=owoTarget();if(!target||owoPending)return;owoPending=true;setOwoAvailability(true);$("owoCashBalance").textContent="Đang tải..."
-      try { const response=await fetch("/api/owo/cash?"+new URLSearchParams(target),{method:"POST",credentials:"same-origin"}),data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Không thể lấy số dư.");$("owoCashBalance").textContent=new Intl.NumberFormat("vi-VN").format(data.cash)+" cowoncy" } catch(error) { $("owoCashBalance").textContent="Chưa tải";$("owoMessage").textContent=error instanceof Error?error.message:"Không thể lấy số dư." } finally { owoPending=false;setOwoAvailability(Boolean(owoTarget())) }
-    }
-    for(const group of Object.values(owoGroups))for(const command of group.commands){const control=$(owoControl(command));if(control)control.addEventListener("input",()=>{owoFormTouched=true})}
-    $("owoHuntBattleSave").onclick=()=>void saveOwoGroup("huntBattle");$("owoHuntBattleToggle").onclick=()=>void toggleOwoGroup("huntBattle")
-    $("owoChannelSave").onclick=()=>void saveOwoChannel();$("owoCash").onclick=()=>void loadOwoCash()
-    $("owoSlotSave").onclick=()=>void saveOwoGroup("slot");$("owoSlotToggle").onclick=()=>void toggleOwoGroup("slot")
-    $("owoExtraSave").onclick=()=>void saveOwoGroup("extra");$("owoExtraToggle").onclick=()=>void toggleOwoGroup("extra")
     async function saveSelectedScene() {
       if (rpcSaving) return
       rpcSaving = true
@@ -2749,7 +2664,7 @@
       showDashboardToast(source.textContent.trim())
       source.textContent = ''
     }
-    for (const id of ['billingStatus', 'depositMessage', 'streamMessage', 'adminBillingMessage', 'owoMessage', 'questMessage']) {
+    for (const id of ['billingStatus', 'depositMessage', 'streamMessage', 'adminBillingMessage', 'questMessage']) {
       const source = $(id)
       new MutationObserver(() => {
         if (!dashboardToastArmed || !source.closest('.page.active') || (id === 'questMessage' && source.dataset.state === 'unavailable')) return
@@ -3418,7 +3333,7 @@
         accountMenu.append(logout)
         finishBoot()
         void loadCardFees()
-        await Promise.all([loadConfigs(), loadQuest(), loadStream(), loadOwo()])
+        await Promise.all([loadConfigs(), loadQuest(), loadStream()])
         window.dispatchEvent(new Event('dashboard-home-ready'))
       } catch { if (oauthLinked) retryLink('Không thể xác minh phiên đăng nhập.') }
       finally { linkedLoadPending = false; finishBoot() }

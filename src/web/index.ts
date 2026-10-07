@@ -14,8 +14,6 @@ import { TOKEN_NOTICE_INTERVALS_MS, tokenNoticeIntervalMs, tokenWebhookNotice } 
 import { isValidStatusConfig } from '../status/config.js'
 import { readStoredToken, serializeToken } from '../token-store.js'
 import { listAccessibleDiscordChannels } from './discord-channel-access.js'
-import { cashChannelId, parseOwoConfig, stoppedStatus } from '../owo/config.js'
-import { parseOwoStatus } from '../owo/web.js'
 import { profileCollectibles } from './showcase-profile.js'
 
 setDefaultResultOrder('ipv4first')
@@ -237,7 +235,6 @@ for(const root of [MULTI_CONFIG_DIR,DISABLED_CONFIG_DIR]){
     const file=basename(String(fileName||''))
     if(file==='voicepool-status.json')queueWebEvent('voicepool-status')
     if(file==='chatpool-status.json')queueWebEvent('chatpool-status')
-    if(file==='owo-status.json')queueWebEvent('owo-status')
   }).on('error',error=>console.error('Token pool status watch failed:',error.message))
 }
 watch(STREAM_CONFIG_DIR,{recursive:true,persistent:false},(_event,fileName)=>{if(basename(String(fileName||''))==='stream-error.txt')queueWebEvent('stream-status')}).on('error',error=>console.error('Stream status watch failed:',error.message))
@@ -334,19 +331,6 @@ async function loadShowcase() {
 function mediaType(file: string) { return file.endsWith('.png') ? 'image/png' : file.endsWith('.gif') ? 'image/gif' : file.endsWith('.webp') ? 'image/webp' : 'image/jpeg' }
 function ck(req: IncomingMessage, n: string) { for (const p of (req.headers.cookie || '').split(';')) { const x=p.trim().split('='); if(x[0]===n)return decodeURIComponent(x.slice(1).join('=')) } }
 function out(res: ServerResponse, code: number, body: unknown) { res.writeHead(code,{'content-type':'application/json; charset=utf-8','cache-control':'no-store'});res.end(JSON.stringify(body)) }
-const owoCashRequests = new Set<string>()
-async function waitOwoCash(path: string, id: string) {
-  const until = Date.now() + 15_000
-  while (Date.now() < until) {
-    const result = await readFile(path, 'utf8').then(JSON.parse).catch(() => null) as { id?: unknown; cash?: unknown; error?: unknown } | null
-    if (result?.id === id) {
-      if (Number.isSafeInteger(result.cash) && Number(result.cash) >= 0) return { cash: Number(result.cash) }
-      if (typeof result.error === 'string') return { error: result.error }
-    }
-    await new Promise(resolve => setTimeout(resolve, 250))
-  }
-  return { error: 'OwO chưa trả số dư.' }
-}
 function set(res: ServerResponse,n:string,v:string,age:number){res.setHeader('set-cookie',n+'='+encodeURIComponent(v)+'; Path=/; HttpOnly; SameSite=Lax; Max-Age='+age+(REDIRECT_URI.startsWith('https://')?'; Secure':''))}
 function folderName(username: string) { return username.replace(/[^\p{L}\p{N}._-]+/gu, '_').slice(0, 48) || 'user' }
 function validFolderPath(value: string) { const parts=value.split('/'); return parts.length===2 && parts.every(part=>folderName(part)===part) }
@@ -1243,65 +1227,6 @@ if(req.method==='GET'&&u.pathname==='/api/discord/channels'){
   try{out(res,200,{mode,guilds:(await discordDirectory(token,mode,u.searchParams.get('guildId')||'')).guilds});return}
   catch(error){out(res,502,{error:error instanceof Error?error.message:'Không thể tải guild/channel.'});return}
 }
-if(u.pathname==='/api/owo/cash'){
-  const x=session(req);if(!x){out(res,401,{error:'Login required'});return}
-  if(req.method!=='POST'){out(res,405,{error:'Method not allowed'});return}
-  const billing=await loadBilling(),owner=billingUser(billing,x.id,x.username)
-  if(owner.disabled&&!admin(x)){out(res,403,{error:'Tài khoản đã bị khóa.'});return}
-  const slotId=u.searchParams.get('slotId')||'',selected=slotId?billingOwner(billing,x,u.searchParams.get('ownerId')||''):null
-  const slot=selected?.owner.slots.find(item=>item.id===slotId)
-  if(!slotId||!selected||!slot){out(res,403,{error:'Config access denied'});return}
-  if(!slotBound(slot)){out(res,409,{error:'Slot chưa gắn token.'});return}
-  if(freeConfigTarget(billing,owner,slot,slot.folder||'')){out(res,403,{error:'Gói Free chỉ dùng được Auto Quest.'});return}
-  const configs=await slotConfigs(slot)
-  if(!configs?.exists||!await readSingleToken(configs.root)){out(res,409,{error:'Slot chưa gắn token.'});return}
-  const configPath=join(configs.root,'owo.json'),requestPath=join(configs.root,'owo-cash-request.json'),resultPath=join(configs.root,'owo-cash-result.json')
-  const parsed=parseOwoConfig(await readFile(configPath,'utf8').then(JSON.parse).catch(()=>null))
-  if(!parsed.ok){out(res,409,{error:parsed.error});return}
-  const channelId=cashChannelId(parsed.value)
-  if(!/^\d{17,20}$/.test(channelId)){out(res,409,{error:'Lưu kênh Số dư trước.'});return}
-  if(owoCashRequests.has(configs.root)){out(res,409,{error:'Đang lấy số dư.'});return}
-  owoCashRequests.add(configs.root)
-  const id=randomBytes(18).toString('base64url')
-  try{
-    await writeFileAtomic(requestPath,JSON.stringify({id})+'\n',{mode:0o600})
-    const result=await waitOwoCash(resultPath,id)
-    if('cash' in result&&typeof result.cash==='number'){out(res,200,result);return}
-    out(res,504,{error:result.error});return
-  }finally{
-    owoCashRequests.delete(configs.root)
-    await rm(requestPath,{force:true}).catch(()=>undefined)
-  }
-}
-if(u.pathname==='/api/owo'){
-  const x=session(req);if(!x){out(res,401,{error:'Login required'});return}
-  const billing=await loadBilling(),owner=billingUser(billing,x.id,x.username)
-  if(owner.disabled&&!admin(x)){out(res,403,{error:'Tài khoản đã bị khóa.'});return}
-  const slotId=u.searchParams.get('slotId')||'',selected=slotId?billingOwner(billing,x,u.searchParams.get('ownerId')||''):null
-  const slot=selected?.owner.slots.find(item=>item.id===slotId)
-  if(!slotId||!selected||!slot){out(res,403,{error:'Config access denied'});return}
-  if(!slotBound(slot)){out(res,409,{error:'Slot chưa gắn token.'});return}
-  if(freeConfigTarget(billing,owner,slot,slot.folder||'')){out(res,403,{error:'Gói Free chỉ dùng được Auto Quest.'});return}
-  const configs=await slotConfigs(slot)
-  if(!configs?.exists||!await readSingleToken(configs.root)){out(res,409,{error:'Slot chưa gắn token.'});return}
-  const configPath=join(configs.root,'owo.json'),statusPath=join(configs.root,'owo-status.json')
-  if(req.method==='GET'){
-    const config=await readFile(configPath,'utf8').then(raw=>JSON.parse(raw)).catch(()=>null)
-    const status=await readFile(statusPath,'utf8').then(raw=>parseOwoStatus(JSON.parse(raw))).catch(stoppedStatus)
-    out(res,200,{config,status});return
-  }
-  if(req.method==='PUT'){
-    const payload=await body(req).catch(()=>null),parsed=parseOwoConfig(payload)
-    if(!parsed.ok){out(res,400,{error:parsed.error});return}
-    const previous=await readFile(configPath,'utf8').then(raw=>parseOwoConfig(JSON.parse(raw))).catch(()=>null)
-    const wasSlotEnabled=previous?.ok&&previous.value.groups?.slot?.enabled===true
-    const resetSlotStats=!wasSlotEnabled&&parsed.value.groups?.slot?.enabled===true
-    if(resetSlotStats)await writeFileAtomic(statusPath,JSON.stringify({...stoppedStatus(),updatedAt:Date.now()})+'\n',{mode:0o600})
-    await writeFileAtomic(configPath,JSON.stringify(parsed.value,null,2)+'\n',{mode:0o600})
-    out(res,200,{config:parsed.value});return
-  }
-  out(res,405,{error:'Method not allowed'});return
-}
 if(u.pathname==="/api/mention-log"){
   const x=session(req);if(!x){out(res,401,{error:"Login required"});return}
   if(req.method!=="DELETE"){out(res,405,{error:"Method not allowed"});return}
@@ -1470,7 +1395,7 @@ if(u.pathname==='/' ){res.writeHead(200,{'content-type':'text/html; charset=utf-
 if(u.pathname==='/home'){res.writeHead(302,{location:'/'});res.end();return}
 const legacyDashboardRoutes: Record<string,string> = {'/deposit':'/dashboard/deposit','/billing':'/dashboard/plan','/admin':'/dashboard/admin','/voice':'/dashboard/voice','/voicepool':'/dashboard/voicepool','/chat':'/dashboard/chat','/chatpool':'/dashboard/chatpool','/stream':'/dashboard/stream','/quest':'/dashboard/quest','/api-page':'/dashboard/api'}
 if(u.pathname in legacyDashboardRoutes){res.writeHead(302,{location:legacyDashboardRoutes[u.pathname]});res.end();return}
-const dashboardRoutes = new Set(['/dashboard','/dashboard/rpc','/dashboard/media','/dashboard/status','/dashboard/voice','/dashboard/voicepool','/dashboard/chat','/dashboard/mention','/dashboard/chatpool','/dashboard/stream','/dashboard/quest','/dashboard/owo','/dashboard/api','/dashboard/plan','/dashboard/deposit','/dashboard/admin'])
+const dashboardRoutes = new Set(['/dashboard','/dashboard/rpc','/dashboard/media','/dashboard/status','/dashboard/voice','/dashboard/voicepool','/dashboard/chat','/dashboard/mention','/dashboard/chatpool','/dashboard/stream','/dashboard/quest','/dashboard/api','/dashboard/plan','/dashboard/deposit','/dashboard/admin'])
 if(!dashboardRoutes.has(u.pathname)){res.writeHead(404);res.end('Not found');return}const mobile=mobilePageRequest(req,u);res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store','accept-ch':'Sec-CH-UA-Mobile, Viewport-Width','vary':'Sec-CH-UA-Mobile, Viewport-Width, User-Agent'});if(req.method==='HEAD'){res.end();return}res.end(await dashboardPage(mobile?'mobile.html':'desktop.html'))
 }).listen(WEB_PORT,WEB_HOST,()=>console.log('Config generator listening on http://'+WEB_HOST+':'+WEB_PORT))
 }

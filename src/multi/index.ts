@@ -15,13 +15,12 @@ import { reusableRpcMediaFile } from './rpc-image-cache.js'
 import { readStoredToken } from '../token-store.js'
 import { shouldStopMissingUnit } from './unit-lifecycle.js'
 import { folderName, syncConfigFolder } from './user-folder.js'
-import { owoUnit } from './owo-unit.js'
 import { canRunVoicepool } from './voicepool-access.js'
 
 type Unit = {
   key: string
   user: string
-  feature: 'rpc' | 'voice' | 'chat' | 'mention' | 'voicepool' | 'chatpool' | 'stream' | 'status' | 'owo'
+  feature: 'rpc' | 'voice' | 'chat' | 'mention' | 'voicepool' | 'chatpool' | 'stream' | 'status'
   entry: string
   root: string
   env: NodeJS.ProcessEnv
@@ -30,7 +29,7 @@ type Unit = {
 }
 
 type Feature = Unit['feature']
-const configuredFeatures = new Set<Feature>((process.env.MULTI_FEATURES || 'rpc,voice,voicepool,chat,mention,chatpool,stream,status,owo').split(',').map(value => value.trim()).filter(Boolean) as Feature[])
+const configuredFeatures = new Set<Feature>((process.env.MULTI_FEATURES || 'rpc,voice,voicepool,chat,mention,chatpool,stream,status').split(',').map(value => value.trim()).filter(Boolean) as Feature[])
 const featureEnabled = (feature: Feature) => configuredFeatures.has(feature)
 const ownsIdentitySync = (process.env.MULTI_ROLE || 'primary') !== 'voice'
 
@@ -56,7 +55,7 @@ const TOKEN_HEALTH_INTERVAL_MS = 5 * 60 * 1000
 const children = new Map<string, ChildProcess>()
 const managedUnits = new Map<string, Unit>()
 const embeddedSessions = new Map<string, Worker>()
-const embeddedFeatures = new Set<Feature>(['rpc', 'status', 'chat', 'chatpool', 'mention', 'owo'])
+const embeddedFeatures = new Set<Feature>(['rpc', 'status', 'chat', 'chatpool', 'mention'])
 const signatures = new Map<string, string>()
 const stopping = new Set<string>()
 const disabled = new Map<string, string>()
@@ -643,13 +642,6 @@ async function units(): Promise<Map<string, Unit>> {
         signature: `${token}:${licenseSignature}:${statusConfig}:${statusCode}`,
         errorFile: join(root, 'status-error.txt')
       })
-    }
-
-    const owoConfig = await fileSignature(join(root, 'owo.json'))
-    const owoCode = await fileSignature('dist/owo/index.js')
-    if (featureEnabled('owo') && owoConfig && owoCode) {
-      const unit = await owoUnit({ root, user, tokenPath, tokenSignature: token, licenseSignature, configSignature: owoConfig, codeSignature: owoCode })
-      if (unit) found.set(unit.key, unit)
     }
   }
 
