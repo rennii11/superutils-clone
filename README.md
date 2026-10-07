@@ -43,14 +43,14 @@ npm run build
 
 ## Cấu hình môi trường
 
-Tệp .env của triển khai gốc /root/superutils có đúng các biến dưới đây; .env.example trong repository trùng danh sách này. Bản sao /root/superutils-clean hiện chưa có .env.
+Tạo tệp .env từ .env.example. Bảng dưới đây liệt kê toàn bộ biến được cung cấp trong .env.example của dự án.
 
 | Nhóm | Biến có trong .env | Mục đích |
 | --- | --- | --- |
 | Web | WEB_HOST, WEB_PORT | Địa chỉ lắng nghe web |
 | OAuth | DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI | Đăng nhập Discord OAuth |
 | Bot/quyền | BOT_TOKEN, ADMIN_IDS | Tích hợp bot và quyền quản trị |
-| Media | MEDIA_BASE_URL | URL gốc của media công khai |
+| Media | MEDIA_BASE_URL | URL cơ sở của media công khai |
 | Mã hóa | TOKEN_ENCRYPTION_KEY | Khóa mã hóa token lưu cục bộ |
 | SePay | SEPAY_API_TOKEN, SEPAY_BANK_NAME, SEPAY_BANK_ACCOUNT, SEPAY_BANK_ACCOUNT_NAME, SEPAY_QR_BASE_URL, SEPAY_POLL_LOOKBACK_DAYS, SEPAY_QR_EXPIRES_MINUTES, SEPAY_ACCOUNT_NUMBER | QR và đối soát SePay |
 | Card2K | CARD2K_PARTNER_ID, CARD2K_PARTNER_KEY, CARD2K_CALLBACK_URL | Nạp thẻ; callback phải dùng HTTPS |
@@ -58,7 +58,7 @@ Tệp .env của triển khai gốc /root/superutils có đúng các biến dư�
 | Thông báo | DISCORD_WEBHOOK_URL | Webhook thông báo dịch vụ |
 | Rich Presence | CONFIG_PATH, DISCORD_SCENE_APPLICATION_IDS | Scene và application ID |
 
-Các biến sau được mã nguồn đọc nhưng không nằm trong .env hiện tại. Chúng chỉ là tham số runtime/PM2 khi cần, không phải biến cần thêm vào tệp .env chuẩn:
+Các biến sau được mã nguồn đọc nhưng không có trong .env.example. Chúng là tham số runtime/PM2 tùy chọn, không cần thêm vào .env nếu không sử dụng:
 
 | Nhóm | Biến runtime |
 | --- | --- |
@@ -71,21 +71,21 @@ Các biến sau được mã nguồn đọc nhưng không nằm trong .env hiệ
 Mặc định trong mã: WEB_HOST=127.0.0.1, WEB_PORT=3210, CONFIG_PATH=scene.json; đường dẫn multi tương ứng là accounts, accounts-disabled, media và stream-users.
 ## Chạy bằng PM2
 
-Triển khai chuẩn hiện có ba process PM2:
+Cấu hình đề xuất sử dụng ba process PM2 độc lập:
 
 | Process | Entry point | Biến PM2 |
 | --- | --- | --- |
-| superutils | dist/multi/index.js | MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo |
-| superutils-web | dist/web/index.js | Không cần MULTI_FEATURES |
-| superutils-voice | dist/multi/index.js | MULTI_ROLE=voice, MULTI_FEATURES=voice,voicepool |
+| superutils-clone | dist/multi/index.js | MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo |
+| superutils-clone-web | dist/web/index.js | Không cần MULTI_FEATURES |
+| superutils-clone-voice | dist/multi/index.js | MULTI_ROLE=voice, MULTI_FEATURES=voice,voicepool |
 
 ~~~sh
 npm run build
 MULTI_FEATURES=rpc,chat,mention,chatpool,stream,status,owo \
-  pm2 start dist/multi/index.js --name superutils --cwd "$(pwd)"
-pm2 start dist/web/index.js --name superutils-web --cwd "$(pwd)"
+  pm2 start dist/multi/index.js --name superutils-clone --cwd "$(pwd)"
+pm2 start dist/web/index.js --name superutils-clone-web --cwd "$(pwd)"
 MULTI_ROLE=voice MULTI_FEATURES=voice,voicepool \
-  pm2 start dist/multi/index.js --name superutils-voice --cwd "$(pwd)"
+  pm2 start dist/multi/index.js --name superutils-clone-voice --cwd "$(pwd)"
 pm2 save
 pm2 status
 ~~~
@@ -94,13 +94,13 @@ Sau khi thay đổi .env hoặc build mới:
 
 ~~~sh
 npm run build
-pm2 restart superutils --update-env
-pm2 restart superutils-web --update-env
-pm2 restart superutils-voice --update-env
+pm2 restart superutils-clone --update-env
+pm2 restart superutils-clone-web --update-env
+pm2 restart superutils-clone-voice --update-env
 pm2 save
 ~~~
 
-Nếu chỉ vận hành web, chỉ khởi động superutils-web. Process không tự nhận mã đã build lại cho đến khi restart.
+Nếu chỉ vận hành web, chỉ khởi động superutils-clone-web. Process không tự nhận mã đã build lại cho đến khi restart.
 
 ## Dữ liệu runtime
 
@@ -121,17 +121,17 @@ Sao lưu sau khi dừng process ghi dữ liệu hoặc dùng cơ chế sao lưu 
 git pull --ff-only
 npm ci
 npm run build
-pm2 restart superutils-web --update-env
-pm2 restart superutils --update-env
+pm2 restart superutils-clone-web --update-env
+pm2 restart superutils-clone --update-env
 pm2 status
-pm2 logs superutils-web --lines 100
+pm2 logs superutils-clone-web --lines 100
 ~~~
 
 Chỉ restart process đang vận hành. git pull --ff-only không ghi đè lịch sử phân nhánh hoặc thay đổi cục bộ.
 
 ## Xử lý sự cố
 
-- Web không mở: kiểm tra WEB_HOST, WEB_PORT, trạng thái PM2 và log superutils-web.
+- Web không mở: kiểm tra WEB_HOST, WEB_PORT, trạng thái PM2 và log superutils-clone-web.
 - OAuth lỗi: kiểm tra DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URI và callback đăng ký phải trùng URL cấu hình.
 - Asset web không tải: chạy từ thư mục gốc hoặc đặt WEB_ASSET_DIR hợp lệ.
 - Build lỗi: xác nhận node --version, sau đó chạy npm ci và npm run build.
