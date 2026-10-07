@@ -30,9 +30,12 @@ Worker ngoài web được multi khởi tạo từ dữ liệu trong MULTI_CONFI
 git clone git@github.com:rennii11/superutils-clone.git
 cd superutils-clone
 npm ci
+npm install -g pm2
 cp .env.example .env
 mkdir -p accounts accounts-disabled media stream-users
 chmod 700 accounts accounts-disabled media stream-users
+
+# Điền các giá trị cần thiết vào .env, rồi build.
 npm run build
 ~~~
 
@@ -66,39 +69,6 @@ Các biến sau được mã nguồn đọc nhưng không nằm trong .env hiệ
 | Hệ thống | CHROME_PATH |
 
 Mặc định trong mã: WEB_HOST=127.0.0.1, WEB_PORT=3210, CONFIG_PATH=scene.json; đường dẫn multi tương ứng là accounts, accounts-disabled, media và stream-users.
-## Lệnh npm
-
-| Lệnh | Thực hiện |
-| --- | --- |
-| npm run clean | Xóa dist |
-| npm run build | Biên dịch TypeScript từ src sang dist |
-| npm start | Chạy Rich Presence |
-| npm run multi | Chạy điều phối worker |
-| npm run web | Chạy web dashboard |
-| npm run status | Chạy worker status |
-| npm run dev | Build rồi chạy Rich Presence |
-
-Chạy từ thư mục gốc dự án. Web đọc asset ở src/web theo thư mục làm việc hiện tại; nếu dùng cwd khác, đặt WEB_ASSET_DIR là đường dẫn tuyệt đối.
-
-## Chạy web cục bộ
-
-~~~sh
-npm run build
-npm run web
-~~~
-
-Với cấu hình mặc định, web lắng nghe tại http://127.0.0.1:3210. Các trang chính: /, /dashboard; /home chuyển hướng về /.
-
-Các API đáng chú ý:
-
-- OAuth: GET /auth/discord, GET /auth/discord/callback, POST /auth/logout.
-- Phiên/người dùng: GET /api/me, POST /api/session/mode, GET /api/users.
-- Cấu hình/media: /api/config, /api/config/toggle, /api/media, /api/media/upload, /api/chat/image, /media/owner/file.
-- Billing: /api/billing, /api/billing/buy, /api/billing/renew, /api/billing/plan-payment, /api/billing/deposit, /api/billing/card2k, /api/billing/card2k/callback.
-- Dashboard khác: /api/spotify/search, /api/stream, /api/quest, /api/owo, /api/mention-log.
-
-Các route api/admin yêu cầu phiên quản trị. Route còn lại kiểm tra phiên/quyền theo từng endpoint.
-
 ## Chạy bằng PM2
 
 Triển khai chuẩn hiện có ba process PM2:
