@@ -1,0 +1,46 @@
+{
+  "name": "superutils",
+  "version": "1.0.0",
+  "description": "Custom Discord Rich Presence runner",
+  "private": true,
+  "main": "dist/rpc/index.js",
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "tsc",
+    "start": "node dist/rpc/index.js",
+    "multi": "node dist/multi/index.js",
+    "web": "node dist/web/index.js",
+    "status": "node dist/status/index.js",
+    "dev": "npm run build && node dist/rpc/index.js"
+  },
+  "dependencies": {
+    "@dank074/discord-video-stream": "^6.0.0",
+    "@discordjs/core": "2.4.0",
+    "@discordjs/rest": "2.6.0",
+    "@discordjs/ws": "2.0.4",
+    "boneyard-js": "^1.10.0",
+    "dayjs": "^1.11.18",
+    "discord-api-types": "^0.38.42",
+    "discord.js-selfbot-v13": "^3.7.0",
+    "dotenv": "^16.6.1",
+    "puppeteer-core": "^25.12.0",
+    "undici": "^6.24.1",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.18.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "allowScripts": {
+    "@lng2004/node-datachannel@0.32.0-20260202": true,
+    "node-av@5.2.4": true,
+    "sharp@0.34.5": true,
+    "zeromq@6.6.0": true
+  }
+}

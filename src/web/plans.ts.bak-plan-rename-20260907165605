@@ -1,0 +1,53 @@
+import type { DatabaseSync } from 'node:sqlite'
+import { FREE_EXPIRES_AT } from './free-plan.js'
+
+export const PLAN_MONTH_MS = 30 * 86400000
+export const PLANS = {
+  p40: { id:'p40', name:'Luna', price:40000, slots:2, configs:1, statuses:5 },
+  p60: { id:'p60', name:'Terra', price:60000, slots:4, configs:3, statuses:15 },
+  p90: { id:'p90', name:'Sol', price:90000, slots:6, configs:5, statuses:25 }
+} as const
+export type PlanId = keyof typeof PLANS
+export type Subscription = { id:PlanId; startsAt:number; expiresAt:number; version:number }
+export type SlotAccess = { ownerId:string; free:boolean; legacy:boolean; parked:boolean; configLimit:number; expiresAt:number }
+export function isPlanId(value:unknown): value is PlanId { return typeof value==='string'&&Object.hasOwn(PLANS,value) }
+
+export function createPlanSchema(db:DatabaseSync) {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS billing_plans(owner_id TEXT PRIMARY KEY,plan_id TEXT NOT NULL CHECK(plan_id IN ('p40','p60','p90')),starts_at INTEGER NOT NULL,expires_at INTEGER NOT NULL,version INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS billing_plan_slots(slot_id TEXT PRIMARY KEY,owner_id TEXT NOT NULL,ordinal INTEGER NOT NULL,UNIQUE(owner_id,ordinal));
+    CREATE TABLE IF NOT EXISTS billing_plan_orders(request_id TEXT PRIMARY KEY,owner_id TEXT NOT NULL,plan_id TEXT NOT NULL,expires_at INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS billing_plan_notices(owner_id TEXT NOT NULL,expires_at INTEGER NOT NULL,days INTEGER NOT NULL,sent_at INTEGER NOT NULL DEFAULT 0,retry_at INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(owner_id,expires_at,days));
+    DROP TRIGGER IF EXISTS remember_legacy_plan;
+    CREATE TRIGGER remember_legacy_plan AFTER INSERT ON billing_slots
+      WHEN NOT EXISTS (SELECT 1 FROM free_claims WHERE slot_id=NEW.id)
+       AND NOT EXISTS (SELECT 1 FROM billing_plan_slots WHERE slot_id=NEW.id)
+      BEGIN INSERT OR IGNORE INTO legacy_plan_accounts(owner_id) VALUES(NEW.owner_id); END;
+  `)
+}
+
+export function slotAccess(db:DatabaseSync,now=Date.now()) {
+  const rows=db.prepare(`SELECT s.id,s.owner_id,s.expires_at,f.slot_id free_id,m.ordinal,p.plan_id,p.expires_at paid_until
+    FROM billing_slots s LEFT JOIN free_claims f ON f.slot_id=s.id
+    LEFT JOIN billing_plan_slots m ON m.slot_id=s.id LEFT JOIN billing_plans p ON p.owner_id=m.owner_id`).all() as {id:string;owner_id:string;expires_at:number;free_id:string|null;ordinal:number|null;plan_id:PlanId|null;paid_until:number|null}[]
+  return new Map<string,SlotAccess>(rows.map(row=>{
+    const managed=row.ordinal!==null,active=managed&&Number(row.paid_until)>now&&isPlanId(row.plan_id)
+    const free=managed?!active&&row.ordinal===0:Boolean(row.free_id)
+    const parked=managed&&(active?row.ordinal!>=PLANS[row.plan_id!].slots:row.ordinal!==0)
+    return [row.id,{ownerId:row.owner_id,free,parked,legacy:!managed&&!row.free_id,configLimit:free||parked?0:active?PLANS[row.plan_id!].configs:1,expiresAt:parked?0:free?FREE_EXPIRES_AT:managed?Number(row.paid_until):row.expires_at}]
+  }))
+}
+
+// Shared by web and workers: expiry works even when the dashboard is offline.
+export function syncPlanExpiry(db:DatabaseSync,now=Date.now()) {
+  const entitled=`m.ordinal < CASE p.plan_id WHEN 'p40' THEN 2 WHEN 'p60' THEN 4 WHEN 'p90' THEN 6 ELSE 0 END`
+  const next=`CASE WHEN p.expires_at>? AND ${entitled} THEN p.expires_at WHEN p.expires_at<=? AND m.ordinal=0 THEN ? ELSE 0 END`
+  db.prepare(`UPDATE billing_slots SET expires_at=(SELECT ${next} FROM billing_plan_slots m JOIN billing_plans p ON p.owner_id=m.owner_id WHERE m.slot_id=billing_slots.id)
+    WHERE id IN (SELECT slot_id FROM billing_plan_slots)`).run(now,now,FREE_EXPIRES_AT)
+  return Number(db.prepare('DELETE FROM billing_slots WHERE expires_at<=? AND id NOT IN (SELECT slot_id FROM billing_plan_slots) AND id NOT IN (SELECT slot_id FROM free_claims)').run(now).changes)
+}
+
+export function reminderDays(expiresAt:number,now=Date.now()) {
+  const left=expiresAt-now
+  return left<=0?0:left<=86400000?1:left<=3*86400000?3:left<=7*86400000?7:null
+}

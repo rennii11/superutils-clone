@@ -1,0 +1,2489 @@
+@font-face{font-family:"Be Vietnam Pro";font-style:normal;font-weight:400;font-display:swap;src:url("/font-be-vietnam-pro-400.ttf") format("truetype")}
+@font-face{font-family:"Be Vietnam Pro";font-style:normal;font-weight:500;font-display:swap;src:url("/font-be-vietnam-pro-500.ttf") format("truetype")}
+@font-face{font-family:"Be Vietnam Pro";font-style:normal;font-weight:600;font-display:swap;src:url("/font-be-vietnam-pro-600.ttf") format("truetype")}
+@font-face{font-family:"Be Vietnam Pro";font-style:normal;font-weight:700;font-display:swap;src:url("/font-be-vietnam-pro-700.ttf") format("truetype")}
+@font-face{font-family:"Be Vietnam Pro";font-style:normal;font-weight:800;font-display:swap;src:url("/font-be-vietnam-pro-800.ttf") format("truetype")}
+@font-face{font-family:"Be Vietnam Pro";font-style:normal;font-weight:900;font-display:swap;src:url("/font-be-vietnam-pro-900.ttf") format("truetype")}
+/* ponytail: Device bundles intentionally duplicate shared rules; extract shared.css when cross-device edits become frequent. */
+
+html{-webkit-tap-highlight-color:rgba(140,140,140,.35)}
+button,select,.menu-toggle{-webkit-tap-highlight-color:transparent!important}
+
+    :root{--night:oklch(0.145 0.022 115);--deep:oklch(0.19 0.028 110);--surface:oklch(0.24 0.035 105);--surface-raised:oklch(0.29 0.045 95);--ink:oklch(0.95 0.018 95);--soft:oklch(0.78 0.035 105);--muted:oklch(0.61 0.045 110);--line:oklch(0.42 0.055 105);--cyan:oklch(0.76 0.17 55);--cyan-dark:oklch(0.22 0.055 55);--violet:oklch(0.86 0.12 130);--danger:oklch(0.75 0.15 25)}
+    *{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:radial-gradient(circle at 88% -10%,oklch(0.42 0.15 55/.34),transparent 32rem),radial-gradient(circle at 15% 100%,oklch(0.36 0.1 130/.32),transparent 36rem),var(--night);color:var(--ink);font:15px "Be Vietnam Pro", "Aptos", sans-serif;letter-spacing:.01em}.shell{max-width:1440px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:224px minmax(0,1fr);gap:38px}.topbar{position:sticky;top:16px;height:calc(100vh - 32px);display:flex;flex-direction:column;align-items:stretch;gap:28px;margin:16px 0;padding:24px 14px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,oklch(0.27 0.035 105/.95),oklch(0.205 0.028 110/.95));box-shadow:12px 14px 34px oklch(0.08 0.02 110/.34)}.brand{font:700 24px "Palatino Linotype", Georgia, serif;letter-spacing:-.03em;padding:0 8px}.brand b{color:var(--cyan)}.menu-toggle{display:none}.tabs{display:flex;flex-direction:column;align-items:stretch;gap:5px}.tabs a{position:relative;color:var(--soft);text-decoration:none;padding:11px 12px 11px 29px;border-radius:9px;font-size:13px;font-weight:700;transition:background .16s,color .16s}.tabs a:before{content:"";position:absolute;left:12px;top:50%;width:6px;height:6px;border-radius:50%;background:var(--muted);transform:translateY(-50%)}.tabs a.active,.tabs a:hover{background:oklch(0.38 0.075 75);color:var(--ink)}.tabs a.active:before{background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.account{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:auto;padding:13px 8px 0;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--soft)}.account-profile{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;min-width:0}.account-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--violet);box-shadow:0 0 0 3px oklch(0.86 0.12 130/.18)}.account-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}.admin-user{width:100%;margin:0;font-size:11px}.admin-user select{margin-top:5px;padding:8px;font-size:11px}.login,.logout{border:1px solid var(--cyan);border-radius:8px;background:linear-gradient(120deg,var(--cyan),var(--violet));color:var(--cyan-dark);font:700 12px "Be Vietnam Pro",sans-serif;padding:9px 11px;text-decoration:none;cursor:pointer}.logout{background:transparent;color:var(--ink);border-color:var(--line)}
+    main{max-width:1180px;margin:0;padding:36px 0 48px}h1{font:700 34px "Palatino Linotype", Georgia, serif;margin:0 0 24px;letter-spacing:-.035em}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:minmax(310px,390px) minmax(0,1fr);gap:20px;align-items:start}.grid>section{padding:18px;background:linear-gradient(145deg,var(--surface-raised),var(--deep));border:1px solid var(--line);border-radius:14px;box-shadow:8px 9px 25px oklch(0.08 0.02 110/.23)}.api{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:calc(100vh - 250px);overflow-y:auto;padding:2px 10px 2px 2px;scrollbar-color:var(--cyan) var(--deep);scrollbar-width:thin}.api::-webkit-scrollbar,textarea::-webkit-scrollbar{width:10px}.api::-webkit-scrollbar-track,textarea::-webkit-scrollbar-track{background:var(--deep);border-radius:8px}.api::-webkit-scrollbar-thumb,textarea::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:8px;border:2px solid var(--deep)}.api code{display:block;background:oklch(0.245 0.035 105);border:1px solid var(--line);border-radius:8px;padding:9px 10px;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s}.api code:hover{border-color:var(--cyan);background:oklch(0.33 0.07 75)}.api code.active{border-color:var(--cyan);background:oklch(0.39 0.09 65);color:oklch(0.98 0.008 95)}.api-info{border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,var(--surface-raised),var(--deep));margin:0 0 16px;padding:18px;box-shadow:8px 9px 25px oklch(0.08 0.02 110/.18)}.api-info h2{font:700 19px Georgia,serif;margin:0 0 8px}.api-info p{margin:6px 0;color:var(--soft)}.billing-box{padding:18px;background:linear-gradient(145deg,var(--surface-raised),var(--deep));border:1px solid var(--line);border-radius:14px;margin-bottom:16px}.billing-box h2{margin:0 0 12px;font:700 20px Georgia,serif}.billing-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.billing-stat{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--deep)}.billing-stat b{display:block;font-size:18px;color:var(--cyan)}.slot{padding:12px;border:1px solid var(--line);border-radius:10px;margin-top:10px}.slot p{margin:5px 0;color:var(--soft)}.billing-note{color:var(--soft);font-size:13px}.billing-form{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}.billing-form label{margin:0}.billing-form button{margin-top:6px}
+.deposit-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:2px 0 16px;padding:4px;border:1px solid var(--line);border-radius:11px;background:var(--deep)}.deposit-tabs button{border-color:transparent;background:transparent;color:var(--soft)}.deposit-tabs button[aria-selected="true"]{border-color:var(--cyan);background:var(--cyan);color:var(--cyan-dark)}.deposit-method{animation:deposit-tab-in 180ms ease-out}@keyframes deposit-tab-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.card-billing-form{grid-template-columns:1fr 1fr}.card-billing-form button{grid-column:1/-1}@media(max-width:520px){.card-billing-form{grid-template-columns:1fr}}
+    .preview-label{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px;color:var(--soft);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.075em}.preview-label span:last-child{color:var(--cyan)}.rpc-preview{padding:15px;border:1px solid oklch(0.42 0.025 105);border-radius:12px;background:oklch(0.25 0.022 110);margin-bottom:15px}.preview-kicker{display:flex;justify-content:space-between;color:oklch(0.83 0.03 105);font-size:12px;font-weight:700;margin-bottom:12px}.preview-platform{width:44px;height:25px;margin-left:9px;object-fit:contain;vertical-align:-7px}.preview-platform.spotify{width:18px;height:18px;margin-left:6px;vertical-align:-4px}.preview-body{display:flex;gap:12px;align-items:flex-start;min-width:0}.preview-copy{min-width:0;flex:1;color:oklch(0.91 0.018 100);line-height:1.35}.preview-copy strong{font:700 18px "Palatino Linotype",Georgia,serif;display:block;margin:6px 0 2px}.preview-copy>div:first-child{font-size:17px;font-weight:700}.preview-art{position:relative;width:80px;height:80px;flex:0 0 80px;border-radius:8px;background:var(--surface-raised);overflow:visible}.preview-art img:first-child{width:80px;height:80px;object-fit:cover;border-radius:8px}.preview-art img:last-child{position:absolute;right:-4px;bottom:-4px;width:28px;height:28px;object-fit:cover;border:2px solid oklch(0.25 0.022 110);border-radius:50%}.preview-muted{color:var(--soft);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:290px}.preview-timestamp{display:flex;align-items:center;gap:7px;color:oklch(0.72 0.13 155);margin-top:4px}.preview-timestamp #previewTypeIcon{font-size:21px;line-height:1}.preview-buttons{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}.preview-buttons a{display:flex;align-items:center;justify-content:center;min-height:34px;border:0;border-radius:6px;background:oklch(0.32 0.025 105);padding:8px;color:oklch(0.94 0.015 95);font-size:13px;font-weight:700;text-decoration:none}.preview-buttons a:hover{background:oklch(0.37 0.04 90)}label{display:block;margin:0 0 13px;color:var(--soft);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.075em}input,select,textarea{width:100%;border:1px solid oklch(0.43 0.055 95);border-radius:8px;background:oklch(0.19 0.03 110);color:var(--ink);padding:11px;font:13px "Be Vietnam Pro",sans-serif;margin-top:6px;transition:border-color .15s,box-shadow .15s}input:hover,select:hover,textarea:hover{border-color:oklch(0.58 0.1 70)}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--cyan);box-shadow:0 0 0 3px oklch(0.76 0.17 55/.16)}textarea{min-height:92px;resize:vertical;scrollbar-color:var(--cyan) var(--deep);scrollbar-width:thin}#output,#voiceOutput,#chatOutput,#voicepoolOutput,#statusOutput{height:18lh;min-height:150px;max-height:38vh}#errors,#voiceErrors,#chatErrors,#voicepoolErrors,#statusErrors{min-height:20px;margin:0 0 10px;color:var(--danger);white-space:pre-wrap}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.checkbox-row{display:flex;align-items:center;gap:8px}.checkbox-row input[type=checkbox]{width:16px;height:16px;flex:0 0 auto;margin-top:0;accent-color:var(--cyan)}button{height:38px;border:1px solid var(--cyan);border-radius:8px;background:var(--cyan);color:var(--cyan-dark);padding:0 13px;font:700 12px "Be Vietnam Pro","Segoe UI",sans-serif;cursor:pointer;transition:filter .15s,transform .15s}button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}button:disabled{opacity:.42;cursor:not-allowed}.actions{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;cursor:grab;touch-action:auto;justify-content:flex-end;margin-top:12px}.save-control{display:none}.can-save .save-control{display:inline-block}
+    
+    @media(max-width:1200px){.shell{display:block;padding:12px}.topbar{position:static;height:auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;margin:12px 0;padding:15px;border-radius:12px}.menu-toggle{display:block;width:42px;height:38px;padding:0;font-size:22px;line-height:1}.tabs{display:none;grid-column:1/-1;flex-direction:column;overflow:visible;padding:4px 0 0}.topbar.menu-open .tabs{display:flex}.tabs a{white-space:nowrap;padding:9px 10px 9px 26px}.account{display:none;grid-column:1/-1;width:100%;margin:0;padding:12px 0 0;border-top:1px solid var(--line);align-items:flex-start}.topbar.menu-open .account{display:flex}.grid{grid-template-columns:1fr;gap:16px}.grid>section{padding:15px}.api{grid-template-columns:repeat(2,minmax(0,1fr));max-height:45vh}.api code{font-size:12px;overflow-wrap:anywhere}#output,#voiceOutput,#chatOutput,#voicepoolOutput,#statusOutput{height:14lh;min-height:130px;max-height:32vh}.row{grid-template-columns:1fr}h1{font-size:27px}main{padding:18px 0 25px}}
+
+.billing-stats-single{grid-template-columns:minmax(0,360px)}
+.payment-dialog{position:relative;width:min(430px,calc(100% - 28px));padding:26px;border:1px solid var(--line);border-radius:18px;background:var(--deep);color:var(--ink);text-align:center;box-shadow:0 28px 80px oklch(0.05 0.02 110/.7)}
+.payment-dialog::backdrop{background:oklch(0.08 0.025 110/.78);backdrop-filter:blur(5px)}
+.payment-dialog h2{margin:5px 0 7px;font:700 28px "Palatino Linotype",Georgia,serif}
+.dialog-close{position:absolute;top:12px;right:12px;width:36px;height:36px;padding:0;border-color:var(--line);background:var(--surface);color:var(--ink);font-size:21px}
+.payment-eyebrow{margin:0;color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.12em}
+.dialog-copy{margin:0 0 14px;color:var(--soft)}
+.payment-dialog>img{display:block;width:min(300px,100%);aspect-ratio:1;object-fit:contain;margin:0 auto;border:1px solid var(--line);border-radius:14px;background:oklch(0.98 0.008 95)}
+.payment-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:13px 0 0;text-align:left}
+.payment-details div{min-width:0;padding:10px;border:1px solid var(--line);border-radius:9px;background:var(--night)}
+.account{position:relative;padding:0;border-top:0;gap:0}.account-profile{width:100%;height:auto;min-height:58px;display:flex;align-items:center;gap:11px;padding:9px 10px;border:1px solid var(--line);border-radius:12px;background:oklch(0.22 0.035 110);color:var(--ink);font-family:inherit;text-align:left;box-shadow:none}.account-profile:hover:not(:disabled){filter:none;transform:none;border-color:var(--cyan);background:oklch(0.26 0.045 100)}.account-profile:after{content:"⌄";margin-left:auto;color:var(--soft);font-size:17px;transition:transform .18s}.account-profile[aria-expanded="true"]:after{transform:rotate(180deg)}.account-avatar{width:38px;height:38px;flex:0 0 38px}.account-avatar-fallback{display:grid;place-items:center;background:var(--violet);color:var(--ink);font-weight:800}.account-menu{position:absolute;right:0;bottom:68px;left:0;z-index:80;display:grid;gap:6px;padding:9px;border:1px solid var(--line);border-radius:12px;background:oklch(0.205 0.03 110);box-shadow:0 18px 45px oklch(0.07 0.02 110/.55)}.account-action{width:100%;min-height:40px;display:flex;align-items:center;padding:9px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink);font:700 12px "Be Vietnam Pro",sans-serif;text-align:left;text-decoration:none;cursor:pointer}.account-action:hover{border-color:var(--line);background:var(--surface);filter:none;transform:none}.account-logout{color:var(--danger)}.admin-user{order:-1;padding:4px 4px 8px;border-bottom:1px solid var(--line)}.admin-user select{min-height:38px;margin-top:6px}.account-menu[hidden]{display:none!important}
+@media(max-width:1200px){.account{padding-top:12px;border-top:1px solid var(--line)}.account-profile{max-width:260px}.account-menu{position:static;width:min(100%,320px);margin-top:8px}}
+
+
+.deposit-summary{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(300px,1.3fr);gap:10px;margin-bottom:14px}.deposit-summary .billing-stat{margin:0}.deposit-limits{display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;gap:16px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--deep)}.deposit-limits span{display:grid;gap:4px;color:var(--soft);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.deposit-limits b{color:var(--ink);font-size:13px;text-transform:none;letter-spacing:0}.deposit-limits i{width:1px;height:38px;background:var(--line)}.topup-list{display:grid;gap:8px}.topup-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--deep)}.topup-item strong{font-size:13px}.topup-item p{margin:4px 0 0;color:var(--soft);font-size:11px}.topup-actions{display:flex;align-items:center;gap:7px}.topup-status{padding:5px 8px;border:1px solid var(--line);border-radius:999px;color:var(--soft);font-size:10px;font-weight:800;white-space:nowrap}.topup-status.pending{color:oklch(.82 .14 80)}.topup-status.paid{color:oklch(.78 .15 150)}.topup-status.failed{color:var(--danger)}.history-open{height:32px;padding:0 9px}.empty-state{padding:24px;border:1px dashed var(--line);border-radius:10px;color:var(--soft);text-align:center}@media(max-width:700px){.deposit-summary{grid-template-columns:1fr}.deposit-limits{grid-template-columns:1fr}.deposit-limits i{width:100%;height:1px}.topup-item{align-items:flex-start;flex-direction:column}.topup-actions{width:100%;justify-content:space-between}}
+.payment-details dt{color:var(--soft);font-size:11px}.payment-details dd{overflow-wrap:anywhere;margin:4px 0 0;color:var(--ink);font-weight:700}
+.countdown{margin:13px 0 5px;color:var(--soft);font-size:13px}.countdown strong{color:var(--cyan)}
+.payment-dialog.expired>img{filter:grayscale(1);opacity:.28}
+@media(max-width:520px){.payment-dialog{padding:22px 16px}.payment-details{grid-template-columns:1fr}}
+
+/* Comic co dien theme: red-yellow-blue accents on black-ink/white-paper comic base. */
+:root{
+  /* Primitive tokens */
+  --manga-paper:oklch(.985 .006 90);
+  --manga-paper-soft:oklch(.95 .008 88);
+  --manga-paper-muted:oklch(.90 .010 85);
+  --manga-ink:oklch(.16 .01 260);
+  --manga-ink-soft:oklch(.34 .012 260);
+  --manga-gray:oklch(.55 .01 260);
+  --manga-stroke:3px;
+  --manga-stroke-thin:2px;
+  --manga-gutter:18px;
+  --manga-space-1:6px;
+  --manga-space-2:10px;
+  --manga-space-3:14px;
+  --manga-space-4:18px;
+  --manga-space-5:24px;
+  --manga-space-6:32px;
+  --manga-radius:1px;
+  --manga-shadow-sm:4px 4px 0 var(--manga-ink);
+  --manga-shadow-md:7px 7px 0 var(--manga-ink);
+  --manga-shadow-lg:10px 10px 0 var(--manga-ink);
+  --comic-red:oklch(.58 .21 25);
+  --comic-red-strong:oklch(.50 .22 25);
+  --comic-yellow:oklch(.86 .17 95);
+  --comic-yellow-strong:oklch(.80 .18 90);
+  --comic-blue:oklch(.52 .18 255);
+  --comic-blue-strong:oklch(.44 .19 258);
+  --comic-green:oklch(.62 .16 148);
+  --comic-halftone:radial-gradient(circle,var(--manga-ink) .6px,transparent .62px);
+  --comic-halftone-accent:radial-gradient(circle,var(--comic-blue) .6px,transparent .62px);
+
+  /* Semantic tokens */
+  --color-background:var(--manga-paper-muted);
+  --color-surface:var(--manga-paper);
+  --color-surface-muted:var(--manga-paper-soft);
+  --color-foreground:var(--manga-ink);
+  --color-muted-foreground:var(--manga-ink-soft);
+  --color-border:var(--manga-ink);
+  --color-focus:var(--comic-blue);
+  --color-accent:var(--comic-yellow);
+  --color-success:var(--comic-green);
+  --color-warning:var(--comic-yellow-strong);
+  --color-danger:var(--comic-red);
+
+  /* Component tokens */
+  --panel-bg:var(--color-surface);
+  --panel-border:var(--color-border);
+  --panel-shadow:var(--manga-shadow-md);
+  --button-bg:var(--comic-blue);
+  --button-bg-hover:var(--comic-blue-strong);
+  --button-bg-active:var(--manga-paper-muted);
+  --button-fg:var(--manga-paper);
+  --button-fg-hover:var(--manga-paper);
+  --input-bg:var(--manga-paper);
+  --input-border:var(--manga-ink);
+  --input-focus-ring:var(--comic-blue);
+  --card-bg:var(--panel-bg);
+  --card-border:var(--panel-border);
+  --card-shadow:var(--panel-shadow);
+  --night:var(--manga-paper-muted);
+  --deep:var(--manga-paper);
+  --surface:var(--manga-paper);
+  --surface-raised:var(--manga-paper);
+  --ink:var(--manga-ink);
+  --soft:var(--manga-ink-soft);
+  --muted:var(--manga-gray);
+  --line:var(--manga-ink);
+  --cyan:var(--comic-blue);
+  --cyan-dark:var(--manga-paper);
+  --violet:var(--manga-ink)
+}
+
+/* Preserved from removed Ink-panel layer: preview button height. */
+.preview-buttons a{min-height:38px}
+
+html{background:var(--color-background);color-scheme:light}
+body{
+  min-height:100vh;
+  background:var(--color-background)!important;
+  color:var(--color-foreground);
+  font-family:"Be Vietnam Pro","Aptos","Segoe UI",sans-serif;
+  letter-spacing:0
+}
+.boot-screen{display:none}
+html[data-booting] body{overflow:hidden}
+html[data-booting] .shell{visibility:hidden}
+html[data-booting] .boot-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-content:center;
+  justify-items:center;
+  gap:14px;
+  background:var(--color-background);
+  color:var(--color-foreground)
+}
+.boot-screen strong{font:900 13px/1 "Be Vietnam Pro",sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.boot-spinner{width:38px;height:38px;border:4px solid var(--manga-ink);border-right-color:transparent;border-radius:50%;animation:boot-spin .7s linear infinite}
+@keyframes boot-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.boot-spinner{animation-duration:1.4s}}
+body::before{
+  content:"";
+  position:fixed;
+  top:0;
+  right:0;
+  z-index:-1;
+  width:340px;
+  height:340px;
+  background-image:var(--comic-halftone);
+  background-size:10px 10px;
+  -webkit-mask-image:radial-gradient(circle at 100% 0,black,transparent 70%);
+  mask-image:radial-gradient(circle at 100% 0,black,transparent 70%);
+  opacity:.35;
+  pointer-events:none
+}
+.shell{
+  width:100%;
+  max-width:none;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:236px minmax(0,1fr);
+  gap:var(--manga-gutter);
+  padding:14px;
+  background:transparent
+}
+
+.topbar{
+  position:sticky;
+  top:14px;
+  height:calc(100vh - 28px);
+  margin:0;
+  padding:24px 14px 18px;
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:var(--manga-radius);
+  background:var(--manga-paper)!important;
+  background-image:none!important;
+  box-shadow:var(--manga-shadow-md);
+  overflow:visible
+}
+.topbar::after{
+  content:"VOL. 01";
+  display:block;
+  margin:auto 8px 0;
+  padding-top:14px;
+  border-top:var(--manga-stroke-thin) solid var(--manga-ink);
+  color:var(--manga-ink);
+  font:900 10px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.18em
+}
+.brand{
+  padding:0 8px 20px;
+  color:var(--manga-ink);
+  font:900 20px/.95 "Be Vietnam Pro","Segoe UI Semibold","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  font-stretch:condensed;
+  font-style:normal;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  text-shadow:none;
+  transform:none
+}
+.brand b{
+  display:block;
+  margin-top:4px;
+  color:var(--manga-ink);
+  font-size:32px;
+  letter-spacing:-.075em
+}
+.tabs{gap:7px}
+.tabs::before{
+  content:"MỤC LỤC";
+  padding:0 10px 8px;
+  color:var(--manga-gray);
+  font:900 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.2em
+}
+.tabs a{
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  padding:9px 10px 9px 34px;
+  border:var(--manga-stroke-thin) solid transparent;
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  font:800 12px/1.1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.015em;
+  text-transform:none;
+  box-shadow:none
+}
+.tabs a::before{
+  left:13px;
+  width:8px;
+  height:8px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  transform:rotate(45deg)
+}
+.tabs a:hover{
+  border-color:var(--manga-ink);
+  background:var(--manga-paper-soft);
+  color:var(--manga-ink);
+  box-shadow:var(--manga-shadow-sm);
+  transform:translate(-2px,-2px)
+}
+.tabs a.active{
+  border-color:var(--manga-ink);
+  background:var(--comic-blue);
+  color:var(--manga-paper);
+  box-shadow:var(--manga-shadow-sm);
+  transform:translate(-2px,-2px)
+}
+.tabs a.active::before{
+  border-color:var(--manga-paper);
+  background:var(--manga-paper);
+  box-shadow:none
+}
+
+.account{color:var(--manga-ink)}
+.account-profile{
+  border:var(--manga-stroke-thin) solid var(--manga-ink)!important;
+  border-radius:0;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  font-family:"Be Vietnam Pro","Segoe UI",sans-serif;
+  font-weight:800;
+  box-shadow:var(--manga-shadow-sm)!important
+}
+.account-profile:hover:not(:disabled){
+  border-color:var(--manga-ink)!important;
+  background:var(--manga-paper-soft)!important;
+  transform:translate(-1px,-1px)!important;
+  box-shadow:5px 5px 0 var(--manga-ink)!important
+}
+.account-avatar{
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  filter:none;
+  box-shadow:none
+}
+.account-avatar-fallback{background:var(--manga-ink);color:var(--manga-paper)}
+.account-menu{
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper)!important;
+  background-image:none!important;
+  color:var(--manga-ink);
+  box-shadow:var(--manga-shadow-md)!important
+}
+.account-action{
+  border:var(--manga-stroke-thin) solid transparent!important;
+  border-radius:0!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  box-shadow:none!important;
+  text-transform:none
+}
+.account-action:hover{
+  border-color:var(--manga-ink)!important;
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)!important;
+  transform:none!important
+}
+.account-logout{
+  border-style:dashed!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important
+}
+
+main{
+  width:100%;
+  max-width:none;
+  min-width:0;
+  margin:0;
+  padding:28px 30px 34px;
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:var(--manga-radius);
+  background:var(--manga-paper);
+  box-shadow:var(--manga-shadow-lg)
+}
+.page{position:relative}
+h1,h2{
+  color:var(--manga-ink);
+  font-family:"Be Vietnam Pro","Segoe UI Semibold","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  font-stretch:condensed;
+  font-style:normal;
+  font-weight:900;
+  text-transform:uppercase
+}
+h1{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 26px;
+  color:var(--manga-ink);
+  font-size:32px;
+  line-height:1;
+  letter-spacing:-.045em;
+  text-shadow:none;
+  transform:none
+}
+h2{font-size:18px;letter-spacing:-.015em}
+
+.grid{gap:var(--manga-gutter)}
+.grid>section,
+.api-info,
+.billing-box,
+.rpc-preview-card,
+.rpc-config-card,
+.payment-dialog,
+.slot{
+  position:relative;
+  border:var(--manga-stroke) solid var(--panel-border);
+  border-radius:var(--manga-radius);
+  background:var(--panel-bg)!important;
+  background-image:none!important;
+  color:var(--manga-ink);
+  box-shadow:var(--panel-shadow)!important
+}
+.grid>section::after,.api-info::after,.billing-box::after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:54px;
+  height:54px;
+  background-image:var(--comic-halftone);
+  background-size:6px 6px;
+  clip-path:polygon(100% 0,100% 100%,0 0);
+  opacity:.3;
+  pointer-events:none
+}
+.rpc-preview-card::after{background-image:var(--comic-halftone-accent)!important}
+.grid>section:hover,
+.api-info:hover,
+.billing-box:hover,
+.rpc-preview-card:hover,
+.rpc-config-card:hover{
+  border-color:var(--manga-ink);
+  background:var(--manga-paper)!important;
+  box-shadow:9px 9px 0 var(--manga-ink)!important;
+  transform:none
+}
+
+#page-config .grid>section:first-child::before,
+.rpc-preview-card::before,
+.rpc-config-card::before,
+#page-voice .grid>section::before,
+#page-voicepool .grid>section::before,
+#page-chat .grid>section::before,
+#page-chatpool .grid>section::before,
+#page-status .grid>section::before,
+.billing-box::before,
+.api-info::before{
+  display:block;
+  width:max-content;
+  margin:-16px 0 16px -16px;
+  padding:7px 14px 7px 10px;
+  border:2px solid var(--manga-ink);
+  background:var(--comic-yellow);
+  color:var(--manga-ink);
+  font:900 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  box-shadow:3px 3px 0 var(--manga-ink);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 6px),calc(100% - 10px) 100%,calc(100% - 10px) calc(100% - 6px),0 calc(100% - 6px))
+}
+.rpc-preview-card::before{
+  background:var(--comic-blue);
+  color:var(--manga-paper)
+}
+#page-config .grid>section:first-child::before{content:"PANEL 01 / INPUT"}
+.rpc-preview-card::before{content:"PANEL 02 / PREVIEW"}
+.rpc-config-card::before{content:"PANEL 03 / JSON"}
+#page-voice .grid>section:first-child::before,
+#page-voicepool .grid>section:first-child::before,
+#page-chat .grid>section:first-child::before,
+#page-chatpool .grid>section:first-child::before,
+#page-status .grid>section:first-child::before{content:"PANEL 01 / INPUT"}
+#page-voice .grid>section:nth-child(2)::before,
+#page-voicepool .grid>section:nth-child(2)::before,
+#page-chat .grid>section:nth-child(2)::before,
+#page-chatpool .grid>section:nth-child(2)::before,
+#page-status .grid>section:nth-child(2)::before{content:"PANEL 02 / JSON"}
+.chat-image-field{display:grid;gap:8px;margin-top:12px;padding:12px;border:2px solid var(--manga-ink);background:var(--manga-paper-soft)}
+.chat-image-field>label{margin:0}
+.chat-image-picker{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+.chat-image-picker b{flex:0 0 auto;padding:10px 12px;border:2px dashed var(--manga-ink);background:var(--manga-paper);font:900 11px/1 "Be Vietnam Pro",sans-serif;text-transform:uppercase}
+.chat-image-picker input[type="file"]{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.chat-image-picker:focus-within b{outline:3px dashed var(--manga-ink);outline-offset:3px}
+.chat-image-preview{display:flex;align-items:center;gap:10px;min-width:0}
+.chat-image-preview img{width:58px;height:58px;flex:0 0 58px;border:2px solid var(--manga-ink);object-fit:cover}
+.chat-image-preview span{min-width:0;flex:1;overflow:hidden;font:800 11px/1.35 "Be Vietnam Pro",sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.chat-image-preview button{min-height:38px;padding:0 10px;box-shadow:3px 3px 0 var(--manga-ink)}
+#page-deposit .billing-box:first-of-type::before{content:"PANEL 01 / NẠP TIỀN"}
+#page-deposit .billing-box:nth-of-type(2)::before{content:"PANEL 02 / LỊCH SỬ"}
+#page-main .account-plan-summary::before{content:"PANEL 01 / GÓI"}
+#page-main .account-plan-slots::before{content:"PANEL 02 / TOKEN"}
+.api-info::before{content:"PANEL 01 / HƯỚNG DẪN"}
+
+label{
+  color:var(--manga-ink);
+  font-family:"Be Vietnam Pro","Segoe UI",sans-serif;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em
+}
+input,select,textarea{
+  border:var(--manga-stroke-thin) solid var(--input-border);
+  border-radius:0;
+  background:var(--input-bg);
+  background-image:none;
+  color:var(--manga-ink);
+  font-family:"Be Vietnam Pro",sans-serif;
+  font-weight:650;
+  box-shadow:3px 3px 0 var(--manga-paper-muted)
+}
+input::placeholder,textarea::placeholder{color:var(--manga-gray);opacity:1}
+input:hover,select:hover,textarea:hover{
+  border-color:var(--manga-ink);
+  background:var(--manga-paper-soft)
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--input-focus-ring);
+  outline:0;
+  background:var(--manga-paper);
+  box-shadow:4px 4px 0 var(--manga-ink)
+}
+input:disabled,select:disabled,textarea:disabled{
+  border-style:dashed;
+  background:var(--manga-paper-muted);
+  color:var(--manga-ink-soft)
+}
+
+button,.login,.preview-buttons a{
+  border:var(--manga-stroke) solid var(--manga-ink)!important;
+  border-radius:0!important;
+  background:var(--button-bg)!important;
+  background-image:none!important;
+  color:var(--button-fg)!important;
+  font-family:"Be Vietnam Pro","Segoe UI",sans-serif!important;
+  font-weight:900!important;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  box-shadow:var(--manga-shadow-sm)!important;
+  transition:background-color 120ms cubic-bezier(.22,1,.36,1),color 120ms cubic-bezier(.22,1,.36,1),box-shadow 120ms cubic-bezier(.22,1,.36,1),transform 120ms cubic-bezier(.22,1,.36,1)!important
+}
+button:hover:not(:disabled),.login:hover,.preview-buttons a:hover{
+  border-color:var(--manga-ink)!important;
+  background:var(--button-bg-hover)!important;
+  color:var(--button-fg-hover)!important;
+  filter:none!important;
+  transform:translate(-2px,-2px)!important;
+  box-shadow:6px 6px 0 var(--manga-ink)!important
+}
+button:active:not(:disabled),.login:active,.preview-buttons a:active{
+  filter:brightness(.88)!important;
+  transform:translate(3px,3px) scale(.985)!important;
+  box-shadow:1px 1px 0 var(--manga-ink)!important
+}
+button:focus-visible,.login:focus-visible,.account-profile:focus-visible,.account-action:focus-visible,.tabs a:focus-visible,.preview-buttons a:focus-visible{
+  outline:var(--manga-stroke) dashed var(--manga-ink);
+  outline-offset:4px;
+  box-shadow:none!important
+}
+button:disabled{
+  border-color:var(--manga-gray)!important;
+  background:var(--manga-paper-muted)!important;
+  color:var(--manga-ink-soft)!important;
+  box-shadow:none!important;
+  opacity:1
+}
+.menu-toggle,.dialog-close,.preview-buttons a{
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important
+}
+.menu-toggle:hover:not(:disabled),.dialog-close:hover:not(:disabled),.preview-buttons a:hover{
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)!important
+}
+
+.rpc-preview{
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:inset 0 0 0 5px var(--manga-paper-soft)
+}
+.preview-label{
+  color:var(--manga-ink);
+  font-family:"Be Vietnam Pro","Segoe UI",sans-serif;
+  text-transform:uppercase
+}
+.preview-label span:last-child{
+  display:inline-block;
+  padding:3px 6px;
+  background:var(--manga-ink);
+  color:var(--manga-paper);
+  transform:none
+}
+.preview-kicker,.preview-copy,.preview-muted{color:var(--manga-ink)}
+.preview-timestamp{color:oklch(.72 .13 155)}
+.preview-art{
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper-soft)
+}
+.preview-art img{filter:none}
+.preview-art img:first-child{border-radius:0}
+.preview-art img:last-child{
+  border-color:var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper)
+}
+.rpc-config-card textarea{
+  background:var(--manga-paper);
+  background-image:none;
+  line-height:1.45
+}
+
+.api code{
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:3px 3px 0 var(--manga-paper-muted)
+}
+.api code:hover{
+  border-color:var(--manga-ink);
+  background:var(--manga-paper-soft);
+  box-shadow:var(--manga-shadow-sm);
+  transform:translate(-1px,-1px)
+}
+.api code.active{
+  border-color:var(--manga-ink);
+  background:var(--manga-ink);
+  color:var(--manga-paper);
+  box-shadow:var(--manga-shadow-sm)
+}
+
+.billing-stat,.deposit-limits,.payment-details div{
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper-soft)!important;
+  color:var(--manga-ink);
+  box-shadow:3px 3px 0 var(--manga-paper-muted)!important
+}
+.deposit-summary .billing-stat{
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)
+}
+.deposit-summary .billing-stat b{color:var(--manga-paper)}
+.billing-stat b,.payment-eyebrow,.countdown strong{color:var(--manga-ink)}
+.deposit-limits i{background:var(--manga-ink)}
+.topup-list{gap:0;border-top:var(--manga-stroke-thin) solid var(--manga-ink)}
+.topup-item{
+  border:0;
+  border-bottom:var(--manga-stroke-thin) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink);
+  box-shadow:none!important
+}
+.topup-item:hover{
+  background:var(--manga-paper-soft)!important;
+  box-shadow:none!important
+}
+.topup-status{
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink)
+}
+.topup-status.pending{
+  border-color:var(--manga-ink);
+  border-style:dashed;
+  background:var(--manga-paper);
+  color:var(--color-warning)
+}
+.topup-status.paid{
+  border-color:var(--color-success);
+  background:var(--manga-paper);
+  color:var(--color-success)
+}
+.topup-status.failed{
+  border-color:var(--manga-ink);
+  background:var(--manga-paper);
+  color:var(--color-danger)
+}
+.empty-state{
+  border:var(--manga-stroke-thin) dashed var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink)
+}
+
+.payment-dialog{
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink);
+  border-top:4px solid var(--comic-blue)!important;
+  box-shadow:var(--manga-shadow-lg)!important
+}
+.payment-dialog::backdrop{
+  background:rgb(0 0 0/.76);
+  backdrop-filter:none
+}
+.payment-dialog>img{
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:0;
+  filter:none
+}
+.payment-dialog.expired>img{filter:grayscale(1);opacity:.28}
+html:has(.payment-dialog[open]),
+html:has(.payment-dialog[open]) body{
+  overflow:hidden;
+  overscroll-behavior:none
+}
+.payment-dialog{
+  position:fixed;
+  inset:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom));
+  width:min(430px,calc(100% - 20px));
+  max-height:calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin:auto;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch
+}
+
+#errors,#voiceErrors,#chatErrors,#voicepoolErrors,.billing-note{
+  color:var(--manga-ink);
+  font-family:"Be Vietnam Pro",sans-serif;
+  font-weight:700
+}
+#errors:not(:empty),#voiceErrors:not(:empty),#chatErrors:not(:empty),#voicepoolErrors:not(:empty){
+  padding:8px;
+  border:var(--manga-stroke-thin) dashed var(--manga-ink);
+  background:var(--manga-paper-soft)
+}
+
+
+
+@media(max-width:1200px){
+  .shell{
+    min-height:100vh;
+    display:block;
+    padding:10px
+  }
+  .topbar{
+    position:sticky;
+    top:8px;
+    z-index:100;
+    width:100%;
+    height:auto;
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:12px;
+    margin:0 0 16px;
+    padding:12px;
+    border:var(--manga-stroke) solid var(--manga-ink);
+    background:var(--manga-paper)!important;
+    box-shadow:var(--manga-shadow-sm)
+  }
+  .topbar::after{display:none}
+  .brand{padding:0;font-size:16px}
+  .brand b{display:inline;margin:0 0 0 4px;font-size:22px}
+  .tabs{grid-column:1/-1}
+  .tabs::before{display:none}
+  .account{grid-column:1/-1}
+  main{
+    padding:22px 18px 28px;
+    box-shadow:6px 6px 0 var(--manga-ink)
+  }
+  h1{font-size:27px}
+  #page-config.active .grid>.rpc-side{
+    display:grid!important;
+    gap:var(--manga-gutter)
+  }
+}
+
+@media(max-width:700px){
+  :root{--manga-gutter:14px}
+  main{padding:18px 13px 24px}
+  h1{gap:8px;font-size:24px}
+  h1::before{height:23px;padding:0 6px;font-size:8px}
+  .grid{grid-template-columns:1fr}
+  .grid>section,.api-info,.billing-box,.rpc-preview-card,.rpc-config-card{padding:14px}
+  #page-config .grid>section:first-child::before,
+  .rpc-preview-card::before,
+  .rpc-config-card::before,
+  #page-voice .grid>section::before,
+  #page-voicepool .grid>section::before,
+  #page-chat .grid>section::before,
+  #page-chatpool .grid>section::before,
+  #page-status .grid>section::before,
+  .billing-box::before,
+  .api-info::before{
+    margin:-14px 0 13px -14px
+  }
+  .api{grid-template-columns:1fr}
+  .deposit-summary{grid-template-columns:1fr}
+  .deposit-limits{grid-template-columns:1fr}
+  .deposit-limits i{width:100%;height:var(--manga-stroke-thin)}
+  .topup-item{align-items:flex-start;flex-direction:column}
+  .topup-actions{width:100%;justify-content:space-between}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .page.active{animation:manga-panel-enter 180ms cubic-bezier(.22,1,.36,1)}
+}
+@keyframes manga-panel-enter{
+  from{opacity:0;transform:translate(6px,6px)}
+  to{opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .page.active,.topbar{animation:none!important}
+  button,.login,.account-profile,.account-action,.tabs a,.api code,.preview-buttons a{transition:none!important}
+}
+
+/* Manga typography correction: remove legacy serif headings. */
+.page h2,.payment-dialog h2{
+  color:var(--manga-ink);
+  font:900 20px/1.1 "Be Vietnam Pro","Segoe UI Semibold","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  font-stretch:condensed;
+  letter-spacing:-.025em;
+  text-transform:uppercase
+}
+
+/* Short desktop viewport: keep preview and JSON panels from overlapping. */
+
+
+/* Compact RPC preview. */
+#page-config.active .rpc-preview-card,.rpc-preview-card{padding:14px}
+.rpc-preview-card::before{
+  margin:-14px 0 12px -14px;
+  padding:6px 9px 5px;
+  font-size:8px
+}
+.rpc-preview-card .preview-label{
+  margin-bottom:6px;
+  font-size:10px
+}
+.rpc-preview-card .rpc-preview{
+  margin:0;
+  padding:11px
+}
+.rpc-preview-card .preview-kicker{
+  margin-bottom:8px;
+  font-size:11px
+}
+.rpc-preview-card .preview-body{gap:9px}
+.rpc-preview-card .preview-art{
+  width:68px;
+  height:68px;
+  flex-basis:68px
+}
+.rpc-preview-card .preview-art img:first-child{
+  width:68px;
+  height:68px
+}
+.rpc-preview-card .preview-art img:last-child{
+  width:24px;
+  height:24px
+}
+.rpc-preview-card .preview-copy{
+  font-size:12px;
+  line-height:1.28
+}
+.rpc-preview-card .preview-copy>div:first-child{font-size:15px}
+.rpc-preview-card .preview-copy strong{
+  margin:3px 0 1px;
+  font-size:16px
+}
+.rpc-preview-card .preview-muted{font-size:11px}
+.rpc-preview-card .preview-timestamp{
+  gap:5px;
+  margin-top:2px
+}
+.rpc-preview-card .preview-timestamp #previewTypeIcon{font-size:17px}
+.rpc-preview-card .preview-buttons{
+  gap:5px;
+  margin-top:8px
+}
+.rpc-preview-card .preview-buttons a{
+  min-height:32px;
+  padding:5px 7px;
+  font-size:11px
+}
+
+/* JSON popup and config action toolbar. */
+.config-toolbar{
+  display:grid;
+  grid-template-columns:minmax(150px,.75fr) minmax(280px,1.25fr);
+  gap:10px 12px;
+  margin:18px -18px -18px;
+  padding:12px 18px 16px;
+  border-top:var(--manga-stroke) solid var(--manga-ink);
+  background:var(--manga-paper);
+  box-shadow:0 -6px 0 var(--manga-paper)
+}
+.json-select-trigger{
+  grid-column:1;
+  grid-row:1;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  text-align:left
+}
+.json-select-trigger:hover:not(:disabled){
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)!important
+}
+.json-select-value{
+  font-size:10px;
+  white-space:nowrap
+}
+.json-select-value::after{
+  content:"⌄";
+  margin-left:7px;
+  font-size:15px
+}
+#page-config.active .config-toolbar .rpc-config-actions{
+  grid-area:auto;
+  grid-column:2;
+  grid-row:1;
+  display:flex;
+  width:100%;
+  gap:8px;
+  margin:0;
+  padding:0
+}
+.config-toolbar .rpc-config-actions button{
+  height:auto;
+  min-height:42px;
+  min-width:0;
+  flex:1;
+  line-height:1.2
+}
+.config-toolbar #errors{
+  grid-column:1/-1;
+  grid-row:2;
+  min-height:0;
+  margin:0
+}
+.config-toolbar #errors:empty{display:none}
+
+.json-dialog{
+  position:fixed;
+  width:min(760px,calc(100% - 28px));
+  height:min(72vh,680px);
+  max-height:calc(100vh - 28px);
+  margin:auto;
+  padding:18px;
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:10px 10px 0 var(--manga-ink)
+}
+.json-dialog[open]{
+  display:flex;
+  flex-direction:column;
+  gap:12px
+}
+.json-dialog::backdrop{background:rgb(0 0 0/.76)}
+.json-dialog-kicker{
+  margin:0;
+  padding-right:48px;
+  font:900 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.15em
+}
+.json-dialog h2{margin:0}
+.json-dialog #output{
+  width:100%;
+  height:auto;
+  min-height:280px;
+  max-height:none;
+  flex:1;
+  margin:0;
+  resize:none
+}
+.json-dialog-actions{
+  width:100%;
+  margin:0;
+  padding:0
+}
+.json-dialog-actions button{
+  width:100%;
+  height:auto;
+  min-height:42px;
+  line-height:1.2
+}
+.save-control{height:auto;min-height:38px;line-height:1.2}
+
+.token-unbind-dialog{
+  width:min(440px,calc(100% - 28px));
+  margin:auto;
+  padding:20px;
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:0;
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:8px 8px 0 var(--manga-ink)
+}
+.token-unbind-dialog[open]{
+  display:grid;
+  gap:12px
+}
+.token-unbind-dialog::backdrop{background:rgb(0 0 0/.76)}
+.token-unbind-kicker{
+  margin:0;
+  font:900 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.15em
+}
+.token-unbind-dialog h2{
+  margin:0;
+  font-size:24px
+}
+.token-unbind-dialog>p:not(.token-unbind-kicker){
+  margin:0;
+  line-height:1.5
+}
+.token-unbind-status{
+  min-height:18px;
+  color:var(--danger);
+  font:800 12px/1.4 "Be Vietnam Pro",sans-serif
+}
+.token-unbind-status:empty{display:none}
+.token-unbind-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
+}
+.token-unbind-actions button{
+  width:100%;
+  min-width:0
+}
+#confirmTokenUnbind{
+  background:var(--manga-ink);
+  color:var(--manga-paper)
+}
+
+.mobile-select-dialog{
+  position:fixed;
+  inset:auto 10px max(10px,env(safe-area-inset-bottom));
+  width:auto;
+  max-width:560px;
+  max-height:min(72dvh,620px);
+  margin:0 auto;
+  padding:0;
+  overflow:hidden;
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:20px;
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:0 10px 0 color-mix(in oklch,var(--manga-ink) 32%,transparent)
+}
+.mobile-select-dialog[open]{display:block}
+.mobile-select-dialog::backdrop{background:rgb(0 0 0/.72)}
+.mobile-select-sheet{
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto;
+  max-height:inherit
+}
+.mobile-select-sheet>header{
+  padding:18px 18px 12px;
+  border-bottom:var(--manga-stroke-thin) solid var(--manga-ink)
+}
+.mobile-select-sheet>header p{
+  margin:0 0 5px;
+  font:900 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.15em
+}
+.mobile-select-sheet>header h2{
+  margin:0;
+  overflow:hidden;
+  font-size:22px;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+.mobile-select-options{
+  display:grid;
+  gap:6px;
+  min-height:0;
+  padding:10px;
+  overflow-y:auto;
+  overscroll-behavior:contain
+}
+.mobile-select-option{
+  width:100%;
+  height:auto;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 13px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink)!important;
+  border-radius:12px!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  text-align:left;
+  overflow-wrap:anywhere;
+  transform:none!important;
+  box-shadow:none!important
+}
+.mobile-select-option[aria-selected="true"]{
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)!important
+}
+.mobile-select-option:hover:not(:disabled){background:var(--manga-paper-soft)!important;color:var(--manga-ink)!important;box-shadow:none!important;transform:none!important}
+.mobile-select-option[aria-selected="true"]:hover{background:var(--manga-ink)!important;color:var(--manga-paper)!important}
+.mobile-select-option[aria-selected="true"]::after{
+  content:"✓";
+  margin-left:auto;
+  font-size:18px
+}
+.mobile-select-option:focus-visible{
+  outline:3px solid var(--manga-ink);
+  outline-offset:2px
+}
+.mobile-select-close{
+  width:calc(100% - 20px);
+  min-height:46px;
+  margin:0 10px 10px;
+  border-radius:12px
+}
+
+@media(max-width:1200px){
+  .config-toolbar{
+    margin:16px -15px -15px;
+    padding:12px 15px 15px
+  }
+}
+@media(max-width:700px){
+  .config-toolbar{
+    grid-template-columns:1fr;
+    margin:14px -14px -14px;
+    padding:12px 14px 16px
+  }
+  .json-select-trigger{grid-column:1;grid-row:1}
+  #page-config.active .config-toolbar .rpc-config-actions{grid-column:1;grid-row:2}
+  .config-toolbar #errors{grid-row:3}
+  .json-dialog{
+    width:calc(100% - 20px);
+    height:78vh;
+    padding:14px;
+    box-shadow:6px 6px 0 var(--manga-ink)
+  }
+  .json-dialog #output{min-height:0}
+  .token-unbind-dialog{
+    width:calc(100% - 20px);
+    padding:16px
+  }
+}
+
+#slotList{
+  max-height:none;
+  overflow:visible
+}
+.slot-tabs{
+  display:flex;
+  flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;cursor:grab;touch-action:auto;
+  gap:8px;
+  margin:0 0 14px
+}
+.slot-tab{
+  min-width:96px;
+  min-height:40px;flex:0 0 auto;scroll-snap-align:start;
+  border:2px solid var(--manga-ink)!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  box-shadow:3px 3px 0 var(--manga-ink)!important
+}
+.slot-tab[aria-selected="true"],
+.slot-tab[aria-selected="true"]:hover{
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)!important;
+  box-shadow:none!important;
+  transform:translate(3px,3px)
+}
+.slot-panel{
+  margin-top:0
+}
+#page-main .slot-panel[data-token-state="invalid"]{
+  background:#ffe4e0!important;
+  box-shadow:6px 6px 0 #b42318!important
+}
+#page-main .slot-panel[data-token-state="invalid"]>b{
+  color:#b42318
+}
+@media(max-width:700px){
+  .slot-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto}
+  .slot-tab{width:auto;min-width:96px}
+}
+
+#billingStatus:empty{display:none}
+#page-main .account-plan-summary .actions{margin-top:8px}
+#page-main .account-plan-slots{padding:14px 18px 16px}
+#page-main .slot-tabs{margin-bottom:10px}
+#page-main .slot-panel{padding:10px}
+#page-main .slot-panel p{margin:3px 0}
+#page-main .slot-panel .actions{margin-top:8px}
+
+
+
+
+
+.slot-bind-actions{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:8px
+}
+.slot-bind-actions input{
+  grid-column:1/-1;
+  margin-top:0
+}
+.slot-token-field{
+  position:relative;
+  min-width:0;
+  grid-column:1/-1
+}
+.slot-token-field input{
+  margin:0;
+  padding-right:50px
+}
+.slot-token-toggle{
+  position:absolute;
+  top:4px;
+  right:4px;
+  bottom:4px;
+  width:36px;
+  min-width:36px;
+  height:auto;
+  min-height:0;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  box-shadow:none!important;
+  transform:none!important
+}
+.slot-token-toggle:hover:not(:disabled),
+.slot-token-toggle:focus-visible{
+  background:var(--manga-ink)!important;
+  color:var(--manga-paper)!important;
+  filter:none
+}
+.slot-token-toggle svg{
+  width:20px;
+  height:20px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+.slot-token-toggle .eye-slash{display:none}
+.slot-token-toggle.is-visible .eye-slash{display:block}
+.slot-bind-status{
+  min-width:0;
+  color:var(--danger);
+  font:800 12px/1.35 "Be Vietnam Pro",sans-serif;
+  overflow-wrap:anywhere
+}
+.slot-bind-status[data-state="checking"]{color:var(--manga-ink-soft)}
+.slot-bind-actions button{white-space:nowrap}
+
+.slot-tab-bar{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:10px
+}
+#page-main .slot-tab-bar .slot-tabs{
+  min-width:0;
+  flex:1;
+  margin:0
+}
+.slot-tab-item{
+  position:relative;
+  min-width:96px
+}
+.slot-tab-item .slot-tab{width:100%}
+.slot .actions .slot-unbind{
+  border-color:var(--manga-ink)!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important
+}
+.slot .actions .slot-unbind:hover:not(:disabled),
+.slot .actions .slot-unbind:focus-visible{
+  border-color:var(--color-danger)!important;
+  background:var(--color-danger)!important;
+  color:oklch(.985 .004 95)!important;
+  box-shadow:4px 4px 0 var(--color-danger)!important;
+  filter:none!important
+}
+.slot-add{
+  width:40px;
+  min-width:40px;
+  height:40px;
+  flex:0 0 40px;
+  padding:0;
+  font:900 22px/1 "Be Vietnam Pro","Segoe UI",sans-serif
+}
+@media(max-width:700px){
+  .slot-tab-bar{gap:6px}
+  .slot-bind-actions{grid-template-columns:1fr 1fr}
+  .slot-bind-actions input,
+  .slot-bind-status{grid-column:1/-1}
+  .slot-bind-actions button{
+    width:100%;
+    min-width:0
+  }
+  .slot-bind-actions .slot-token-toggle{width:36px;min-width:36px}
+}
+
+
+/* Per-slot config switcher */
+.config-slot-switcher{
+  display:flex;
+  align-items:end;
+  gap:14px;
+  margin:-8px 0 18px;
+  padding:8px 10px;
+  border-left:8px solid var(--manga-ink);
+  background:repeating-linear-gradient(-45deg,var(--manga-paper),var(--manga-paper) 8px,var(--manga-paper-soft) 8px,var(--manga-paper-soft) 10px)
+}
+.config-slot-switcher[hidden]{display:none}
+.config-slot-switcher label{
+  display:grid;
+  grid-template-columns:auto minmax(190px,260px);
+  align-items:center;
+  gap:10px;
+  margin:0;
+  font-weight:900;
+  text-transform:uppercase
+}
+.config-slot-switcher select{
+  min-height:38px;
+  border:2px solid var(--manga-ink);
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:3px 3px 0 var(--manga-ink);
+  font-weight:900
+}
+.config-slot-switcher>span{
+  padding-bottom:7px;
+  color:var(--muted);
+  font-size:.84rem
+}
+
+@media(max-width:700px){
+  .config-slot-switcher{align-items:stretch;flex-direction:column;gap:6px;margin-top:-4px}
+  .config-slot-switcher label{grid-template-columns:1fr}
+  .config-slot-switcher>span{padding-bottom:0}
+}
+
+.admin-user-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:end;
+  gap:10px
+}
+.admin-user-actions label{flex:1 1 150px;min-width:130px;max-width:290px}
+.admin-user-toolbar{
+  display:grid;
+  grid-template-columns:minmax(260px,1fr) minmax(0,1.6fr) auto;
+  align-items:end;
+  gap:14px;
+  margin:0 0 14px;
+  padding:14px;
+  border:2px solid var(--manga-ink);
+  background:var(--manga-paper-soft)
+}
+.admin-user-summary{
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  padding:9px 11px;
+  border:2px solid var(--manga-ink);
+  background:var(--manga-paper);
+  font:800 12px/1.4 "Be Vietnam Pro",sans-serif;
+  overflow-wrap:anywhere
+}
+.admin-slot-dates{display:grid;gap:10px;margin-top:14px}
+.admin-slot-editor{
+  padding:10px 12px;
+  border:3px solid var(--manga-ink);
+  background:var(--manga-paper);
+  box-shadow:5px 5px 0 var(--manga-ink)
+}
+.admin-slot-main{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px 10px
+}
+.admin-slot-main>strong{font:900 16px/1 "Be Vietnam Pro","Segoe UI Semibold","Segoe UI","Helvetica Neue",Arial,sans-serif;font-stretch:condensed}
+.admin-slot-main span{
+  padding:4px 8px;
+  border:2px solid var(--manga-ink);
+  font:800 10px/1.2 "Be Vietnam Pro",sans-serif;
+  text-transform:uppercase
+}
+.admin-slot-main [data-state="active"]{border-color:var(--color-success);color:var(--color-success)}
+.admin-slot-main [data-state="expired"]{border-color:var(--color-danger);color:var(--color-danger)}
+.admin-slot-main [data-state="unbound"]{border-style:dashed}
+.admin-slot-until{margin-left:auto;padding:0!important;border:0!important;font:700 12px/1.4 "Be Vietnam Pro",sans-serif;color:var(--manga-ink-soft);text-transform:none}
+.admin-slot-quick{display:flex;align-items:center;gap:6px}
+.admin-slot-quick input{width:72px}
+.admin-slot-edit{margin-top:8px;border-top:2px dashed var(--manga-ink);padding-top:8px}
+.admin-slot-edit summary{cursor:pointer;font:800 12px/1.4 "Be Vietnam Pro",sans-serif;color:var(--manga-ink-soft)}
+.admin-slot-edit summary:before{content:"▸ "}
+.admin-slot-edit[open] summary:before{content:"▾ "}
+.admin-date-fields{
+  display:grid;
+  grid-template-columns:minmax(200px,1fr) minmax(200px,1fr) auto;
+  align-items:end;
+  gap:10px;
+  margin-top:8px
+}
+.admin-slot-editor button{border-color:var(--manga-ink);background:var(--manga-ink);color:var(--manga-paper)}
+@media(max-width:800px){
+  .admin-user-toolbar,.admin-date-fields{grid-template-columns:1fr}
+  .admin-user-actions{grid-template-columns:minmax(0,1fr) auto}
+  .admin-day-extension{grid-template-columns:1fr auto}
+  .admin-day-extension small{grid-column:1/-1}
+}
+@media(max-width:520px){
+  .admin-price-row,.admin-user-actions,.admin-day-extension{grid-template-columns:1fr}
+  .admin-slot-head{align-items:flex-start;flex-direction:column}
+  .admin-slot-states{justify-content:flex-start}
+}
+
+/* Fixed monochrome theme switch. It floats above panels without changing layout. */
+:root[data-theme="dark"]{
+  --manga-paper:oklch(.19 .014 258);
+  --manga-paper-soft:oklch(.24 .016 258);
+  --manga-paper-muted:oklch(.15 .012 258);
+  --manga-ink:oklch(.94 .006 90);
+  --manga-ink-soft:oklch(.76 .01 90);
+  --manga-gray:oklch(.57 .010 92);
+  --manga-stroke:2px;
+  --manga-stroke-thin:1px;
+  --manga-shadow-sm:4px 4px 0 oklch(.26 .022 85);
+  --manga-shadow-md:6px 6px 0 oklch(.26 .022 85);
+  --manga-shadow-lg:8px 8px 0 oklch(.26 .022 85);
+  --comic-red:oklch(.68 .18 25);
+  --comic-red-strong:oklch(.74 .18 25);
+  --comic-yellow:oklch(.82 .15 95);
+  --comic-yellow-strong:oklch(.78 .16 90);
+  --comic-blue:oklch(.70 .15 255);
+  --comic-blue-strong:oklch(.76 .14 255);
+  --comic-green:oklch(.72 .15 148);
+  --color-background:var(--manga-paper-muted);
+  --color-surface:var(--manga-paper);
+  --color-surface-muted:var(--manga-paper-soft);
+  --color-foreground:var(--manga-ink);
+  --color-muted-foreground:var(--manga-ink-soft);
+  --color-border:var(--manga-ink);
+  --color-focus:var(--comic-blue);
+  --color-accent:var(--comic-yellow);
+  --color-success:var(--comic-green);
+  --color-warning:var(--comic-yellow-strong);
+  --color-danger:var(--comic-red);
+  --panel-bg:var(--manga-paper);
+  --panel-border:var(--manga-ink);
+  --button-bg:var(--comic-blue);
+  --button-bg-hover:var(--comic-blue-strong);
+  --button-bg-active:var(--manga-paper-soft);
+  --button-fg:var(--manga-paper);
+  --button-fg-hover:var(--manga-paper);
+  --input-bg:var(--manga-paper);
+  --input-border:var(--manga-ink);
+  --input-focus-ring:var(--comic-blue);
+  --card-bg:var(--manga-paper);
+  --card-border:var(--manga-ink);
+  --night:var(--manga-paper-muted);
+  --deep:var(--manga-paper);
+  --surface:var(--manga-paper);
+  --surface-raised:var(--manga-paper-soft);
+  --ink:var(--manga-ink);
+  --soft:var(--manga-ink-soft);
+  --muted:var(--manga-gray);
+  --line:var(--manga-ink);
+  --cyan:var(--comic-blue);
+  --cyan-dark:var(--manga-paper);
+  --violet:var(--manga-ink)
+}
+html[data-theme="dark"]{background:var(--color-background);color-scheme:dark}
+
+.theme-toggle{
+  position:fixed;
+  right:18px;
+  bottom:max(18px,env(safe-area-inset-bottom));
+  z-index:120;
+  width:auto;
+  height:auto;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 9px 7px 11px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink)!important;
+  border-radius:0;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  box-shadow:var(--manga-shadow-sm)!important;
+  font:900 10px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.08em
+}
+.theme-toggle:hover:not(:disabled),.theme-toggle:focus-visible{
+  background:var(--manga-paper-soft)!important;
+  color:var(--manga-ink)!important;
+  filter:none!important;
+  transform:translate(-2px,-2px)!important
+}
+.theme-toggle-track{
+  position:relative;
+  width:46px;
+  height:24px;
+  flex:0 0 46px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  background:var(--manga-paper-soft)
+}
+.theme-toggle-thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:14px;
+  height:14px;
+  background:var(--manga-ink);
+  transition:transform 180ms cubic-bezier(.22,1,.36,1),background-color 180ms cubic-bezier(.22,1,.36,1)
+}
+.theme-toggle[aria-pressed="true"] .theme-toggle-thumb{transform:translateX(22px);background:var(--comic-blue)}
+@media(max-width:767px){.theme-toggle{right:10px;bottom:calc(max(10px,env(safe-area-inset-bottom)) + 76px)}}
+@media(prefers-reduced-motion:reduce){.theme-toggle-thumb{transition:none}}
+
+/* Quest control page */
+.quest-grid{
+  display:grid;
+  grid-template-columns:minmax(320px,.82fr) minmax(380px,1.18fr);
+  gap:22px;
+  align-items:start
+}
+.quest-grid>section{
+  position:relative;
+  min-width:0;
+  padding:22px 18px 18px;
+  border:var(--manga-stroke) solid var(--manga-ink);
+  border-radius:var(--manga-radius);
+  background:var(--manga-paper);
+  color:var(--manga-ink);
+  box-shadow:var(--manga-shadow-md)
+}
+.quest-grid>section::before{
+  position:absolute;
+  top:-3px;
+  left:-3px;
+  padding:7px 12px 6px;
+  background:var(--manga-ink);
+  color:var(--manga-paper);
+  font:900 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.16em
+}
+.quest-control-panel::before{content:"PANEL 01 / LỊCH"}
+.quest-status-panel::before{content:"PANEL 02 / TRẠNG THÁI"}
+.quest-state-line{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:10px 0 18px;
+  padding-bottom:13px;
+  border-bottom:var(--manga-stroke-thin) solid var(--manga-ink);
+  font-weight:900
+}
+.quest-state-line>span{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+#questStateBadge{
+  padding:6px 8px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  background:var(--manga-paper);
+  font:900 10px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.08em
+}
+#questStateBadge[data-state="enabled"]{border-color:var(--color-success);color:var(--color-success)}
+#questStateBadge[data-state="running"]{border-color:var(--color-warning);color:var(--color-warning)}
+#questStateBadge[data-state="disabled"]{border-style:dashed;color:var(--manga-ink-soft)}
+.quest-form-row{align-items:end}
+.quest-copy{
+  max-width:62ch;
+  margin:3px 0 0;
+  color:var(--manga-ink-soft);
+  font-size:13px
+}
+.quest-actions{margin-top:18px}
+.quest-actions #questDisable{
+  border-color:var(--manga-ink)!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important
+}
+.quest-actions #questDisable:hover:not(:disabled),
+.quest-actions #questDisable:focus-visible{
+  border-color:var(--color-danger)!important;
+  background:var(--color-danger)!important;
+  color:oklch(.985 .004 95)!important;
+  box-shadow:4px 4px 0 var(--color-danger)!important
+}
+.quest-message{
+  min-height:20px;
+  margin:14px 0 0;
+  color:var(--manga-ink-soft);
+  font:700 12px/1.45 "Be Vietnam Pro",sans-serif
+}
+.quest-status-list{
+  margin:10px 0 0;
+  border-top:var(--manga-stroke-thin) solid var(--manga-ink)
+}
+.quest-status-list>div{
+  display:grid;
+  grid-template-columns:minmax(110px,.42fr) minmax(0,1fr);
+  gap:14px;
+  padding:11px 0;
+  border-bottom:var(--manga-stroke-thin) solid var(--manga-ink)
+}
+.quest-status-list dt{
+  color:var(--manga-ink-soft);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.quest-status-list dd{
+  margin:0;
+  overflow-wrap:anywhere;
+  font:800 12px/1.35 "Be Vietnam Pro",sans-serif
+}
+.quest-progress{
+  margin-top:18px;
+  padding:12px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  background:var(--manga-paper-soft)
+}
+.quest-progress-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:9px;
+  font-size:11px
+}
+.quest-progress-head strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quest-progress-head span{flex:0 0 auto;color:var(--color-warning);font-weight:900}
+.quest-progress-track{
+  height:16px;
+  padding:2px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink);
+  background:var(--manga-paper)
+}
+.quest-progress-track i{
+  display:block;
+  width:0;
+  height:100%;
+  background:var(--manga-ink);
+  transition:width 180ms cubic-bezier(.22,1,.36,1)
+}
+.quest-summary{
+  margin:16px 0 0;
+  color:var(--manga-ink-soft);
+  font:700 12px/1.5 "Be Vietnam Pro",sans-serif
+}
+@media(max-width:900px){
+  .quest-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .quest-grid{gap:16px}
+  .quest-grid>section{padding:20px 14px 14px;box-shadow:5px 5px 0 var(--manga-ink)}
+  .quest-actions{display:grid;grid-template-columns:1fr}
+  .quest-actions button{width:100%}
+  .quest-status-list>div{grid-template-columns:1fr;gap:4px}
+}
+@media(prefers-reduced-motion:reduce){.quest-progress-track i{transition:none}}
+/* Admin-only token recovery for archived user configs. */
+.admin-disabled-token{display:grid;gap:6px;padding:4px}.admin-disabled-token input,.admin-disabled-token button{width:100%}.admin-disabled-token small{font:700 10px "Be Vietnam Pro",sans-serif;color:var(--danger)}
+
+/* Obsolete mobile dock removed */
+
+.feature-toggle{
+  border-color:var(--manga-ink)!important;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important
+}
+.feature-toggle:hover:not(:disabled),
+.feature-toggle:focus-visible{
+  border-color:var(--color-danger)!important;
+  background:var(--color-danger)!important;
+  color:oklch(.985 .004 95)!important;
+  box-shadow:4px 4px 0 var(--color-danger)!important
+}
+.feature-toggle[data-state="disabled"]{
+  border-color:var(--manga-ink-soft)!important;
+  background:var(--manga-paper-soft)!important;
+  color:var(--manga-ink-soft)!important
+}
+.feature-toggle[data-state="disabled"]:hover:not(:disabled),
+.feature-toggle[data-state="disabled"]:focus-visible{
+  border-color:var(--color-accent)!important;
+  background:var(--color-accent)!important;
+  color:oklch(.985 .004 95)!important;
+  box-shadow:4px 4px 0 var(--color-accent)!important
+}
+
+/* Floating preview toggle + theme toggle cluster. */
+.manga-float{
+  position:fixed;
+  right:18px;
+  bottom:max(18px,env(safe-area-inset-bottom));
+  z-index:120;
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+.manga-float .theme-toggle{
+  position:static;
+  margin:0
+}
+.preview-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:7px 11px;
+  border:var(--manga-stroke-thin) solid var(--manga-ink)!important;
+  border-radius:0;
+  background:var(--manga-paper)!important;
+  color:var(--manga-ink)!important;
+  box-shadow:var(--manga-shadow-sm)!important;
+  font:900 10px/1 "Be Vietnam Pro","Segoe UI",sans-serif;
+  letter-spacing:.08em;
+  white-space:nowrap
+}
+body.config-page .preview-toggle{
+  display:inline-flex
+}
+.preview-toggle:hover:not(:disabled),.preview-toggle:focus-visible{
+  background:var(--manga-paper-soft)!important;
+  color:var(--manga-ink)!important;
+  filter:none!important;
+  transform:translate(-2px,-2px)!important
+}
+@media(max-width:767px){
+  .manga-float{
+    right:10px;
+    bottom:calc(max(10px,env(safe-area-inset-bottom)) + 76px)
+  }
+  html.preview-scroll-lock,body.preview-scroll-lock{
+    overflow:hidden
+  }
+  #page-config.active .grid>.rpc-side{
+    display:none!important
+  }
+  #page-config.active .grid>.rpc-side.preview-open{
+    display:block!important;
+    position:fixed!important;
+    top:50%;
+    left:50%;
+    z-index:1100;
+    width:min(90vw,420px);
+    max-height:min(80dvh,560px);
+    margin:0;
+    padding:18px!important;
+    overflow-y:auto;
+    border:var(--manga-stroke) solid var(--manga-ink)!important;
+    border-radius:0!important;
+    background:var(--manga-paper)!important;
+    box-shadow:7px 7px 0 var(--manga-ink)!important;
+    transform:translate(-50%,-50%);
+    opacity:0;
+    transition:opacity .18s ease,visibility .18s;
+    visibility:hidden
+  }
+  #page-config.active .grid>.rpc-side.preview-open{
+    opacity:1;
+    visibility:visible
+  }
+  .preview-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:1090;
+    background:transparent;
+    touch-action:none;
+    -webkit-backdrop-filter:blur(6px);
+    backdrop-filter:blur(6px)
+  }
+}
+
+.admin-overview{margin-top:14px;display:grid;gap:10px}
+.admin-filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between}
+.admin-filters input[type=search]{flex:1 1 200px;max-width:320px}
+.admin-chips{display:flex;flex-wrap:wrap;gap:6px}
+.admin-chips button{padding:7px 11px;border:2px solid var(--manga-ink);background:var(--manga-paper);font:800 11px/1.2 "Be Vietnam Pro",sans-serif;cursor:pointer}
+.admin-chips button.active{background:var(--manga-ink);color:var(--manga-paper)}
+.admin-overview-table{display:grid;border:3px solid var(--manga-ink);background:var(--manga-paper);overflow:hidden}
+.admin-overview-row{display:grid;grid-template-columns:minmax(110px,1.4fr) minmax(70px,.8fr) minmax(55px,.6fr) minmax(100px,1.2fr) minmax(90px,.9fr) minmax(80px,.8fr);gap:8px;padding:9px 12px;border-bottom:1px solid var(--manga-ink);cursor:pointer;font:700 12px/1.4 "Be Vietnam Pro",sans-serif;align-items:center}
+.admin-overview-row:last-child{border-bottom:0}
+.admin-overview-row:hover{background:var(--manga-paper-soft)}
+.admin-overview-row.selected{outline:3px solid var(--cyan);outline-offset:-3px}
+.admin-overview-head{cursor:default;font-weight:800;text-transform:uppercase;font-size:10px;color:var(--manga-ink-soft)}
+.admin-overview-badge{display:inline-block;padding:2px 6px;border:2px solid var(--manga-ink);font-size:10px;text-transform:uppercase;font-weight:800}
+.admin-overview-badge.bad{border-color:var(--color-danger);color:var(--color-danger)}
+.admin-overview-badge.warn{border-color:var(--color-warning);color:var(--color-warning)}
+.admin-overview-badge.locked{border-color:var(--color-danger);color:var(--color-danger);border-style:dashed}
+.admin-bulk-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px;padding:10px 12px;border:2px dashed var(--manga-ink);background:var(--manga-paper-soft)}
+.admin-bulk-bar input[type=number]{width:80px}
+.admin-bulk-check{display:flex;align-items:center;gap:6px;font:800 12px "Be Vietnam Pro",sans-serif}
+.admin-bulk-count{font:700 11px "Be Vietnam Pro",sans-serif;color:var(--manga-ink-soft)}
+.admin-bulk-bar .admin-danger,.admin-danger{border-color:var(--color-danger)!important;background:var(--color-danger)!important;color:#fff!important}
+.admin-history{margin-top:14px;border:3px solid var(--manga-ink);background:var(--manga-paper);padding:10px 12px}
+.admin-history summary{cursor:pointer;font:900 13px/1.4 "Be Vietnam Pro",sans-serif}
+.admin-history-body{margin-top:10px;display:grid;gap:6px;max-height:320px;overflow:auto}
+.admin-history-row{display:grid;grid-template-columns:100px minmax(80px,1fr) minmax(80px,1fr) minmax(80px,1fr) minmax(0,1.4fr);gap:8px;font:700 11px/1.4 "Be Vietnam Pro",sans-serif;padding:6px 8px;border:1px solid var(--manga-ink)}
+.admin-history-head{font-weight:800;text-transform:uppercase;font-size:10px;color:var(--manga-ink-soft)}
+.admin-slot-main input[type=checkbox]{width:16px;height:16px;accent-color:var(--manga-ink)}
+@media (max-width:900px){
+  .admin-overview-head{display:none}
+  .admin-overview-row{grid-template-columns:1fr 1fr;font-size:11px}
+  .admin-history-row{grid-template-columns:90px 1fr;grid-auto-flow:row}
+}
+.account-notices{display:grid;gap:6px;margin:0 0 16px;padding:0}.account-notices[hidden]{display:none}.account-notices>div{border:1px solid #d9a21b;border-left:4px solid #d9a21b;border-radius:8px;background:#fff8df;color:#5a4300;padding:9px 10px;font-size:13px;line-height:1.4}[data-theme="dark"] .account-notices>div{background:#302b1d;color:#ffe39a;border-color:#b88b21}
+.admin-revoke-slot,.admin-revoke-slot-btn{border-color:var(--danger)!important;background:transparent!important;color:var(--danger)!important}.admin-revoke-slot:hover:not(:disabled),.admin-revoke-slot-btn:hover:not(:disabled){background:var(--danger)!important;color:oklch(0.98 0.01 95)!important}
+.stream-command-list{display:grid;gap:8px}.stream-command-list code{display:block;padding:10px;border:1px solid var(--manga-ink);background:var(--manga-paper-soft)}
+.spotify-search{margin-bottom:14px}.spotify-search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}.spotify-search-row input{margin:0}.spotify-search-row button{height:42px}.spotify-results{display:grid;gap:7px;margin-top:9px}.spotify-result{display:grid;grid-template-columns:48px minmax(0,1fr);gap:10px;align-items:center;width:100%;height:auto;min-height:62px;padding:7px;border:2px solid var(--manga-ink);background:var(--manga-paper);color:var(--manga-ink);text-align:left;box-shadow:3px 3px 0 var(--manga-ink)}.spotify-result img{width:48px;height:48px;object-fit:cover}.spotify-result span{display:grid;gap:2px;min-width:0}.spotify-result strong,.spotify-result small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.spotify-result small{color:var(--manga-ink-soft)}.spotify-result[aria-selected="true"]{background:var(--manga-ink);color:var(--manga-paper)}.spotify-result[aria-selected="true"] small{color:var(--manga-paper-soft)}
+#page-deposit .deposit-tabs{gap:12px;border:0;background:transparent;padding:0;width:100%}
+#page-deposit .deposit-tabs button{background:var(--manga-paper)!important;color:var(--manga-ink)!important;border:3px solid var(--manga-ink)!important;box-shadow:4px 4px 0 var(--manga-ink)!important}
+#page-deposit .deposit-tabs button[aria-selected="true"]{background:var(--manga-ink)!important;color:var(--manga-paper)!important;transform:translate(2px,2px);box-shadow:2px 2px 0 var(--manga-ink)!important}
+.card-receive{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3px 10px;margin-top:14px;padding:10px 11px;border:2px solid var(--manga-ink);background:var(--manga-paper-soft);font-family:"Be Vietnam Pro",sans-serif}.card-receive span{grid-row:1/3;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}.card-receive b{text-align:right;font-size:16px}.card-receive small{text-align:right;color:var(--manga-ink-soft);font-weight:800}
+
+/* Obsolete mobile menu removed */
+
+/* Account overview */
+#page-main .account-home{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(360px,1.2fr);gap:18px;margin-bottom:32px}
+#page-main .account-home-intro{grid-column:1/-1;display:grid;gap:8px;padding-bottom:4px}
+#page-main .account-home-intro p{grid-column:1/-1;margin:0;font:900 11px/1.2 "Be Vietnam Pro",sans-serif;letter-spacing:.14em}
+#page-main .account-home-intro h1{margin:0}
+#page-main .account-home-intro span{max-width:62ch;font-weight:700}
+.account-home-profile,.account-home-status{border:var(--manga-stroke) solid var(--manga-ink);background:var(--manga-paper);box-shadow:var(--manga-shadow-md)}
+.account-home-profile{display:flex;flex-direction:column;justify-content:space-between;gap:22px;padding:20px}
+.account-home-identity{display:flex;align-items:center;gap:14px}
+.account-home-identity>img,.account-home-identity>span{width:72px;height:72px;flex:0 0 72px;border:var(--manga-stroke) solid var(--manga-ink);border-radius:50%;background:var(--manga-ink);color:var(--manga-paper);object-fit:cover;display:grid;place-items:center;font:900 28px/1 "Be Vietnam Pro",sans-serif}
+.account-home-identity>[hidden]{display:none}
+.account-home-identity div{min-width:0;display:grid;gap:5px}
+.account-home-identity strong{overflow:hidden;font-size:24px;text-overflow:ellipsis;white-space:nowrap}
+.account-home-identity small{font:700 12px/1.4 "Be Vietnam Pro",sans-serif;overflow-wrap:anywhere}
+.account-home-profile dl{display:grid;grid-template-columns:1fr;margin:0;border-top:var(--manga-stroke-thin) solid var(--manga-ink)}
+.account-home-profile dl div{padding:14px 10px 0}
+.account-home-profile dt{font:900 10px/1.2 "Be Vietnam Pro",sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.account-home-profile dd{margin:5px 0 0;font-weight:900}
+.account-home-status{min-width:0;max-width:100%;padding:20px}
+.account-home-status>header{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:var(--manga-stroke-thin) solid var(--manga-ink)}
+.account-home-status>header i{width:14px;height:14px;flex:0 0 14px;border:2px solid var(--manga-ink);border-radius:50%;background:var(--manga-ink);box-shadow:0 0 0 5px var(--manga-paper-muted)}
+.account-home-status h2{margin:0;font-size:18px}
+.account-home-status header p{margin:3px 0 0;font:700 12px/1.4 "Be Vietnam Pro",sans-serif}
+.feature-slot-nav{display:flex;align-items:center;justify-content:center;gap:0;margin-top:14px}
+.feature-slot-nav[hidden]{display:none}
+.feature-slot-nav button,.feature-slot-nav b{display:grid;place-items:center;height:42px;border:2px solid var(--manga-ink);background:var(--manga-paper);color:var(--manga-ink);font:900 14px/1 "Be Vietnam Pro",sans-serif}
+.feature-slot-nav button{width:46px;padding:0;font-size:26px;box-shadow:none}
+.feature-slot-nav b{min-width:112px;padding:0 14px;border-right:0;border-left:0;letter-spacing:.08em}
+.feature-slot-nav button:active{background:var(--manga-ink);color:var(--manga-paper);transform:none}
+.feature-slot-nav button:focus-visible{outline:3px dashed var(--manga-ink);outline-offset:3px}
+.feature-status-marquee{width:100%;max-width:100%;box-sizing:border-box;overflow:hidden;margin-top:16px;border:var(--manga-stroke-thin) solid var(--manga-ink);background:var(--manga-paper-soft);touch-action:pan-y;cursor:grab;user-select:none}
+.feature-status-marquee.is-dragging{cursor:grabbing}
+.feature-status-track{display:flex;width:max-content;padding:8px 0;animation:feature-status-scroll 28s linear infinite;will-change:transform}
+.feature-status-group{display:flex;gap:8px;padding-right:8px}
+.feature-status-item{display:flex;align-items:center;gap:8px;min-height:34px;padding:0 10px;border:2px solid var(--manga-ink);background:var(--manga-paper);font:900 10px/1 "Be Vietnam Pro",sans-serif;letter-spacing:.05em;white-space:nowrap}
+.feature-status-item::before{content:"";width:8px;height:8px;border:2px solid var(--manga-ink);border-radius:50%;background:var(--manga-paper)}
+.feature-status-item em{font-style:normal}
+.feature-status-item[data-state="enabled"]{background:var(--manga-ink);color:var(--manga-paper)}
+.feature-status-item[data-state="enabled"]::before{border-color:var(--manga-paper);background:var(--manga-paper)}
+.feature-status-item[data-state="loading"]{border-style:dashed}
+.feature-status-text{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@keyframes feature-status-scroll{to{transform:translate3d(-50%,0,0)}}
+.account-status-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:15px 0;border-bottom:var(--manga-stroke-thin) solid var(--manga-ink)}
+.account-status-row:last-child{border-bottom:0;padding-bottom:0}
+.account-status-row>div{display:grid;gap:3px}
+.account-status-row span{font:700 11px/1.4 "Be Vietnam Pro",sans-serif}
+.account-status-row>b{flex:0 0 auto;padding:6px 8px;border:2px solid var(--manga-ink);font:900 10px/1 "Be Vietnam Pro",sans-serif;text-transform:uppercase}
+.account-status-row>b[data-state="success"]{background:var(--manga-ink);color:var(--manga-paper)}
+.account-status-row>b[data-state="checking"],.account-status-row>b[data-state="warning"]{border-style:dashed}
+.account-plan-title{margin:0 0 14px;font-size:22px}
+@media(max-width:700px){
+  #page-main .account-home{grid-template-columns:1fr;gap:14px;margin-bottom:26px}
+  #page-main .account-home-intro{display:flex;align-items:stretch;flex-direction:column}
+  .account-home-profile,.account-home-status{padding:14px;box-shadow:5px 5px 0 var(--manga-ink)}
+  .account-home-identity>img,.account-home-identity>span{width:62px;height:62px;flex-basis:62px}
+  .account-home-identity strong{font-size:20px}
+  .account-status-row{align-items:flex-start;flex-direction:column;gap:8px}
+}
+@media(prefers-reduced-motion:reduce){.feature-status-marquee{overflow-x:auto;touch-action:auto}.feature-status-track{animation:none;will-change:auto}.feature-status-group:last-child{display:none}}
+.spotify-selected{display:grid;gap:7px;margin-top:9px}.spotify-selected-title{color:var(--manga-ink-soft)}.spotify-selected-item{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:10px;align-items:center;padding:6px;border:2px solid var(--manga-ink);background:var(--manga-paper);box-shadow:3px 3px 0 var(--manga-ink)}.spotify-selected-item img{width:40px;height:40px;object-fit:cover}.spotify-selected-item span{display:grid;gap:2px;min-width:0}.spotify-selected-item strong,.spotify-selected-item small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.spotify-selected-item small{color:var(--manga-ink-soft)}.spotify-selected-remove{width:32px;height:32px;padding:0;font-size:18px;line-height:1}
+.spotify-search-wrap{position:relative}.spotify-search-wrap input{padding-right:38px}.spotify-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:28px;height:28px;padding:0;font-size:18px;line-height:1}
+
+/* Status sequence builder */
+.status-mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.status-mode-grid label,.status-global-delay{margin-bottom:12px}
+.status-global-emoji{margin:0 0 16px;padding:12px;border:var(--manga-stroke-thin) solid var(--manga-ink);background:var(--manga-paper-soft)}
+.status-global-emoji .checkbox-row{margin-bottom:0}
+.status-builder-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:18px 0 12px;padding-bottom:10px;border-bottom:var(--manga-stroke-thin) solid var(--manga-ink)}
+.status-builder-head>div{display:grid;gap:3px}
+.status-builder-head b{font:900 13px/1.2 "Be Vietnam Pro",sans-serif;letter-spacing:.07em;text-transform:uppercase}
+.status-builder-head span{color:var(--manga-ink-soft);font:700 10px/1.3 "Be Vietnam Pro",sans-serif}
+.status-add{min-height:42px;border:2px solid var(--manga-ink)!important;background:var(--manga-ink)!important;color:var(--manga-paper)!important;box-shadow:3px 3px 0 var(--manga-ink-soft)!important}
+.status-items{display:grid;max-height:58vh;overflow-y:auto;overscroll-behavior:contain}
+.status-item{display:grid;gap:10px;padding:14px 2px 16px;border-bottom:var(--manga-stroke-thin) solid var(--manga-ink)}
+.status-item:first-child{padding-top:2px}
+.status-item:last-child{border-bottom:0}
+.status-item>label{margin:0}
+.status-item-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.status-item-head>b{font:900 10px/1 "Be Vietnam Pro",sans-serif;letter-spacing:.12em}
+.status-item-actions{display:flex;gap:6px}
+.status-item-actions button{width:auto;min-width:42px;height:42px;padding:0 10px;border:2px solid var(--manga-ink)!important;background:var(--manga-paper)!important;color:var(--manga-ink)!important;box-shadow:none!important;font-size:16px}
+.status-item-actions .status-item-remove{font-size:10px;text-transform:uppercase}
+.status-item-actions .status-item-remove:hover:not(:disabled),.status-item-actions .status-item-remove:focus-visible{border-color:var(--color-danger)!important;background:var(--color-danger)!important;color:var(--manga-paper)!important}
+.status-item-emoji{padding:10px;border:1px solid var(--manga-ink);background:var(--manga-paper-soft)}
+.status-item-emoji .checkbox-row{margin-bottom:0}
+.status-global-delay[hidden],.status-global-emoji[hidden],.status-item-delay[hidden],.status-item-emoji[hidden]{display:none!important}
+@media(max-width:700px){
+  .status-mode-grid{grid-template-columns:1fr;gap:0}
+  .status-builder-head{align-items:stretch;flex-direction:column}
+  .status-add{width:100%}
+  .status-items{max-height:none;overflow:visible}
+  .status-item-head{align-items:flex-start;flex-direction:column}
+  .status-item-actions{width:100%}
+  .status-item-actions button{flex:1}
+  .status-item .row{grid-template-columns:1fr}
+}
+
+
+/* --- Dashboard Color Accents & Tactile Scroll/Click --- */
+.save-control,
+button[id$=Save],
+#save,
+#saveJson,
+#depositSepay,
+#depositCard,
+#confirmTokenUnbind,
+#questEnable {
+  background: var(--comic-green) !important;
+  color: var(--manga-paper) !important;
+}
+.save-control:hover:not(:disabled),
+button[id$=Save]:hover:not(:disabled),
+#save:hover:not(:disabled),
+#saveJson:hover:not(:disabled),
+#depositSepay:hover:not(:disabled),
+#depositCard:hover:not(:disabled),
+#confirmTokenUnbind:hover:not(:disabled),
+#questEnable:hover:not(:disabled) {
+  background: oklch(0.52 0.18 148) !important;
+  color: var(--manga-paper) !important;
+}
+
+button[id$=Copy],
+#copy,
+#openJson,
+#cancelTokenUnbind {
+  background: var(--comic-yellow) !important;
+  color: var(--manga-ink) !important;
+}
+button[id$=Copy]:hover:not(:disabled),
+#copy:hover:not(:disabled),
+#openJson:hover:not(:disabled),
+#cancelTokenUnbind:hover:not(:disabled) {
+  background: var(--comic-yellow-strong) !important;
+  color: var(--manga-ink) !important;
+}
+
+.status-item-remove,
+button[id$=Remove],
+#chatImageRemove,
+#chatpoolImageRemove,
+#spotifyClear,
+#questDisable,
+#adminRevokeSlot,
+#adminBulkRevoke,
+.admin-revoke-slot,
+.admin-revoke-slot-btn,
+.account-logout {
+  background: var(--comic-red) !important;
+  color: var(--manga-paper) !important;
+}
+.status-item-remove:hover:not(:disabled),
+button[id$=Remove]:hover:not(:disabled),
+#chatImageRemove:hover:not(:disabled),
+#chatpoolImageRemove:hover:not(:disabled),
+#spotifyClear:hover:not(:disabled),
+#questDisable:hover:not(:disabled),
+#adminRevokeSlot:hover:not(:disabled),
+#adminBulkRevoke:hover:not(:disabled),
+.admin-revoke-slot:hover:not(:disabled),
+.admin-revoke-slot-btn:hover:not(:disabled),
+.account-logout:hover:not(:disabled) {
+  background: var(--comic-red-strong) !important;
+  color: var(--manga-paper) !important;
+}
+
+.status-add,
+#statusAdd,
+#adminGrantSlot,
+#adminAddCredit,
+#adminDebitBtn,
+#adminBulkExtend,
+#adminSavePrice,
+#adminToggleLock,
+#questRun {
+  background: var(--comic-blue) !important;
+  color: var(--manga-paper) !important;
+}
+.status-add:hover:not(:disabled),
+#statusAdd:hover:not(:disabled),
+#adminGrantSlot:hover:not(:disabled),
+#adminAddCredit:hover:not(:disabled),
+#adminDebitBtn:hover:not(:disabled),
+#adminBulkExtend:hover:not(:disabled),
+#adminSavePrice:hover:not(:disabled),
+#adminToggleLock:hover:not(:disabled),
+#questRun:hover:not(:disabled) {
+  background: var(--comic-blue-strong) !important;
+  color: var(--manga-paper) !important;
+}
+
+.feature-toggle {
+  background: var(--manga-paper-soft) !important;
+  color: var(--manga-ink) !important;
+}
+.feature-toggle:hover:not(:disabled) {
+  background: var(--comic-yellow) !important;
+  color: var(--manga-ink) !important;
+}
+
+.status-item-actions button {
+  background: var(--manga-paper-soft) !important;
+  color: var(--manga-ink) !important;
+}
+.status-item-actions button:hover:not(:disabled) {
+  background: var(--comic-blue) !important;
+  color: var(--manga-paper) !important;
+}
+.status-item-actions .status-item-remove {
+  background: var(--comic-red) !important;
+  color: var(--manga-paper) !important;
+}
+.status-item-actions .status-item-remove:hover:not(:disabled) {
+  background: var(--comic-red-strong) !important;
+  color: var(--manga-paper) !important;
+}
+
+/* Enhanced tactile scrolling & scrollbars */
+html, body {
+  scroll-behavior: smooth;
+}
+.actions, .api, .config-fields, .rpc-side, .status-items, .topup-list, textarea {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--comic-blue) var(--manga-paper-soft);
+  scrollbar-width: thin;
+}
+.actions::-webkit-scrollbar,
+.api::-webkit-scrollbar,
+.config-fields::-webkit-scrollbar,
+.rpc-side::-webkit-scrollbar,
+.status-items::-webkit-scrollbar,
+.topup-list::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.actions::-webkit-scrollbar-track,
+.api::-webkit-scrollbar-track,
+.config-fields::-webkit-scrollbar-track,
+.rpc-side::-webkit-scrollbar-track,
+.status-items::-webkit-scrollbar-track,
+.topup-list::-webkit-scrollbar-track,
+textarea::-webkit-scrollbar-track {
+  background: var(--manga-paper-soft);
+  border: 1px solid var(--manga-ink);
+}
+.actions::-webkit-scrollbar-thumb,
+.api::-webkit-scrollbar-thumb,
+.config-fields::-webkit-scrollbar-thumb,
+.rpc-side::-webkit-scrollbar-thumb,
+.status-items::-webkit-scrollbar-thumb,
+.topup-list::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  background: var(--comic-blue);
+  border: 1px solid var(--manga-ink);
+}
+.actions::-webkit-scrollbar-thumb:hover,
+.api::-webkit-scrollbar-thumb:hover,
+.config-fields::-webkit-scrollbar-thumb:hover,
+.rpc-side::-webkit-scrollbar-thumb:hover,
+.status-items::-webkit-scrollbar-thumb:hover,
+.topup-list::-webkit-scrollbar-thumb:hover,
+textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--comic-blue-strong);
+}
+
+
+/* Dark Utility theme. Keep this last so device-specific layout wins. */
+:root,:root[data-theme="dark"]{--dash-bg:#000;--dash-surface:#111214;--dash-surface-raised:#191a1d;--dash-soft:#232428;--dash-ink:#f5f5f5;--dash-muted:#9a9a9a;--dash-line:rgba(255,255,255,.14);--dash-accent:#f59e0b;--dash-accent-hover:#d97706;--dash-signal:#22c55e;--dash-input-bg:#0b0c0e;--dash-enabled-text:#b7f7cc;--manga-paper:var(--dash-surface);--manga-paper-soft:var(--dash-surface-raised);--manga-paper-muted:var(--dash-bg);--manga-ink:var(--dash-ink);--manga-ink-soft:var(--dash-muted);--manga-gray:var(--dash-muted);--manga-stroke:1px;--manga-stroke-thin:1px;--manga-radius:12px;--manga-shadow-sm:none;--manga-shadow-md:none;--manga-shadow-lg:none;--comic-blue:var(--dash-accent);--comic-blue-strong:var(--dash-accent-hover);--comic-yellow:var(--dash-accent);--comic-green:var(--dash-signal);--night:var(--dash-bg);--deep:var(--dash-surface);--surface:var(--dash-surface);--surface-raised:var(--dash-surface-raised);--ink:var(--dash-ink);--soft:var(--dash-muted);--muted:var(--dash-muted);--line:var(--dash-line);--cyan:var(--dash-accent);--cyan-dark:#1a1200;--violet:var(--dash-ink)}
+html{background:var(--dash-bg)!important;color-scheme:dark}body{background:var(--dash-bg)!important;color:var(--dash-ink)!important;font-family:"Be Vietnam Pro","Segoe UI",sans-serif}body::before,.topbar::after,.tabs::before,.theme-toggle{display:none!important}
+.shell{max-width:1440px!important;grid-template-columns:232px minmax(0,1fr)!important;gap:0!important;padding:0!important}.topbar{top:0!important;height:100dvh!important;margin:0!important;padding:24px 14px 18px!important;border:0!important;border-right:1px solid var(--dash-line)!important;border-radius:0!important;background:rgba(0,0,0,.88)!important;box-shadow:none!important;backdrop-filter:blur(20px)}
+.brand{display:block;padding:0 10px 22px!important;color:#f5f5f5!important;font:800 26px/1 "Be Vietnam Pro","Segoe UI",sans-serif!important;letter-spacing:-.05em!important;text-decoration:none!important;text-transform:none!important}.brand::before,.mobile-brand::before{content:"";display:inline-block;width:8px;height:8px;margin:0 8px 4px 0;border-radius:50%;background:var(--dash-signal);box-shadow:0 0 0 4px rgba(34,197,94,.15)}.brand b{display:none!important}
+.tabs{gap:3px!important}.tabs a{min-height:40px!important;padding:10px 11px!important;border:1px solid transparent!important;border-radius:8px!important;background:transparent!important;color:var(--dash-muted)!important;font:600 13px/1.1 "Be Vietnam Pro",sans-serif!important;letter-spacing:0!important;transform:none!important;box-shadow:none!important}.tabs a::before{display:none!important}.tabs a:hover{border-color:var(--dash-line)!important;background:var(--dash-surface)!important;color:var(--dash-ink)!important;transform:none!important;box-shadow:none!important}.tabs a.active{border-color:rgba(245,158,11,.35)!important;background:rgba(245,158,11,.14)!important;color:var(--dash-accent)!important;transform:none!important;box-shadow:none!important}
+.account{border-top:1px solid var(--dash-line)!important;padding:14px 10px 0!important}.login,.logout{border:1px solid var(--dash-accent)!important;border-radius:7px!important;background:var(--dash-accent)!important;color:#1a1200!important;font:700 12px "Be Vietnam Pro",sans-serif!important;box-shadow:none!important}
+main{max-width:none!important;margin:0!important;padding:38px 44px 56px!important}h1,h2,.billing-box h2,.api-info h2,.payment-dialog h2,.preview-copy strong{font-family:"Be Vietnam Pro","Segoe UI",sans-serif!important}h1{font-size:32px!important;letter-spacing:-.04em!important}.grid>section,.billing-box,.api-info,.rpc-preview-card,.rpc-config-card,.account-home-profile,.account-home-status{border:1px solid var(--dash-line)!important;border-radius:12px!important;background:var(--dash-surface)!important;box-shadow:none!important}.grid>section{padding:18px!important}.billing-stat,.slot,.topup-item,.deposit-limits,.rpc-preview,.payment-details div{border-color:var(--dash-line)!important;border-radius:9px!important;background:var(--dash-surface-raised)!important;box-shadow:none!important}.billing-stat b,.countdown strong,.preview-label span:last-child{color:var(--dash-accent)!important}
+input,select,textarea{border:1px solid var(--dash-line)!important;border-radius:8px!important;background:var(--dash-input-bg)!important;color:var(--dash-ink)!important;box-shadow:none!important}input:hover,select:hover,textarea:hover{border-color:var(--dash-line)!important}input:focus,select:focus,textarea:focus{border-color:var(--dash-line)!important;box-shadow:none!important;outline:0}button{border:1px solid var(--dash-accent)!important;border-radius:7px!important;background:var(--dash-accent)!important;color:#1a1200!important;box-shadow:none!important}button:hover:not(:disabled){background:var(--dash-accent-hover)!important;filter:none!important;transform:translateY(-1px)!important}button:disabled{border-color:var(--dash-line)!important;background:var(--dash-soft)!important;color:var(--dash-muted)!important}
+.account-home{gap:14px!important;margin-bottom:28px!important}.account-home-intro{gap:6px!important;padding-bottom:2px!important}.account-home-intro p{color:var(--dash-accent)!important;font-size:10px!important;letter-spacing:.13em!important}.account-home-intro h1::before{display:none!important}.account-home-profile,.account-home-status{padding:18px!important}.account-home-identity>img,.account-home-identity>span{border:0!important;background:var(--dash-soft)!important;color:var(--dash-ink)!important}.account-home-profile dl,.account-home-status>header{border-color:var(--dash-line)!important}.account-home-status>header i{border:3px solid var(--dash-bg)!important;background:var(--dash-signal)!important;box-shadow:0 0 0 3px rgba(34,197,94,.15)!important}
+.feature-status-marquee{overflow:visible!important;margin-top:14px!important;border:0!important;background:transparent!important;cursor:default!important}.feature-status-track,.feature-status-group{width:auto!important;display:flex!important;flex-wrap:wrap!important;gap:7px!important;padding:0!important;animation:none!important;transform:none!important}.feature-status-group:last-child{display:none!important}.feature-status-item{min-height:30px!important;padding:0 9px!important;border:1px solid var(--dash-line)!important;border-radius:999px!important;background:var(--dash-surface-raised)!important;color:var(--dash-muted)!important;font:600 11px/1 "Be Vietnam Pro",sans-serif!important;letter-spacing:0!important}.feature-status-item::before{width:6px!important;height:6px!important;border:0!important;background:var(--dash-muted)!important}.feature-status-item[data-state="enabled"]{border-color:rgba(34,197,94,.35)!important;background:rgba(34,197,94,.12)!important;color:var(--dash-enabled-text)!important}.feature-status-item[data-state="enabled"]::before{background:var(--dash-signal)!important}.feature-status-item[data-state="loading"]{border-style:solid!important}
+#page-main .account-plan-summary::before,#page-main .account-plan-slots::before{display:none!important}#page-main .account-plan-summary,#page-main .account-plan-slots{margin-left:0!important;padding:18px!important}.scene-tab{height:34px!important;padding:0 11px!important;border:1px solid var(--dash-line)!important;border-radius:7px!important;background:var(--dash-surface-raised)!important;color:var(--dash-ink)!important;box-shadow:none!important;transform:none!important}.scene-tab:hover:not(:disabled){border-color:var(--dash-accent)!important;box-shadow:none!important;transform:none!important}.scene-tab.active,.scene-tab.add{border-color:var(--dash-accent)!important;background:var(--dash-accent)!important;color:#1a1200!important;box-shadow:none!important;transform:none!important}.web-confirm-box{border:1px solid var(--dash-line)!important;border-radius:12px!important;background:var(--dash-surface)!important;color:var(--dash-ink)!important;box-shadow:0 24px 70px rgba(0,0,0,.5)!important}.web-confirm-msg{color:var(--dash-ink)!important}.web-confirm-cancel{border:1px solid var(--dash-line)!important;border-radius:7px!important;background:var(--dash-surface-raised)!important;color:var(--dash-ink)!important;box-shadow:none!important}.web-confirm-ok.danger,.scene-tab.del{background:#ef4444!important;border-color:#ef4444!important;box-shadow:none!important}
+/* Mobile Navigation & 2-Column Menu Drawer */
+.mobile-brand { display: none; }
+
+@media (max-width: 1200px) {
+  .shell {
+    display: block !important;
+    padding: 0 14px 40px !important;
+  }
+  .topbar,
+  .topbar.mobile-dock {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    z-index: 1000 !important;
+    width: auto !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin: 0 -14px 20px !important;
+    padding: 0 16px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--dash-line) !important;
+    border-radius: 0 !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+  .topbar::before,
+  .topbar::after,
+  .topbar.mobile-dock::before,
+  .topbar.mobile-dock::after {
+    display: none !important;
+  }
+  .mobile-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    color: #f5f5f5 !important;
+    font: 800 22px/1 "Be Vietnam Pro", sans-serif !important;
+    letter-spacing: -0.05em !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+  }
+  .mobile-brand::before {
+    content: "" !important;
+    display: block !important;
+    width: 7px !important;
+    height: 7px !important;
+    flex: 0 0 7px !important;
+    margin: 0 8px 0 0 !important;
+    border-radius: 50% !important;
+    background: var(--dash-signal, #22c55e) !important;
+    box-shadow: none !important;
+  }
+  .menu-toggle,
+  .topbar .menu-toggle,
+  .mobile-dock .menu-toggle,
+  .topbar.mobile-dock .menu-toggle {
+    display: grid !important;
+    place-items: center !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    height: 38px !important;
+    order: 2 !important;
+    padding: 0 !important;
+    border: 1px solid var(--dash-line) !important;
+    border-radius: 8px !important;
+    background: var(--dash-surface) !important;
+    color: var(--dash-ink) !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    transform: none !important;
+    box-shadow: none !important;
+    pointer-events: auto !important;
+    transition: background 0.15s, border-color 0.15s !important;
+    outline: none !important;
+  }
+  .topbar.menu-open .menu-toggle,
+  .topbar.mobile-dock.menu-open .menu-toggle {
+    background: var(--dash-surface-raised) !important;
+    border-color: var(--dash-accent) !important;
+    color: var(--dash-accent) !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .menu-toggle:focus,
+  .menu-toggle:focus-visible,
+  .menu-toggle:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Scrim behind the popover, tap to dismiss (stays clear of the header row so the icon never sits under the blur) */
+  .mobile-dock-scrim,
+  .topbar .mobile-dock-scrim,
+  .topbar.mobile-dock .mobile-dock-scrim {
+    position: fixed !important;
+    top: 64px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 998 !important;
+    background: rgba(4, 5, 6, 0.5) !important;
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 260ms cubic-bezier(.32,.72,0,1), visibility 0s linear 260ms !important;
+  }
+  .topbar.menu-open .mobile-dock-scrim,
+  .topbar.mobile-dock.menu-open .mobile-dock-scrim {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition: opacity 260ms cubic-bezier(.32,.72,0,1), visibility 0s linear !important;
+  }
+
+  /* Drawer panel -> anchored popover under the toggle button */
+  .mobile-dock-panel,
+  .topbar .mobile-dock-panel,
+  .topbar.mobile-dock .mobile-dock-panel {
+    position: absolute !important;
+    top: calc(100% + 10px) !important;
+    right: 16px !important;
+    left: 16px !important;
+    bottom: auto !important;
+    width: auto !important;
+    max-width: 380px !important;
+    margin-left: auto !important;
+    height: auto !important;
+    max-height: min(70dvh, 520px) !important;
+    z-index: 999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 14px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid var(--dash-line) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.22) !important;
+    background: var(--dash-surface) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-8px) !important;
+    transform-origin: top right !important;
+    will-change: transform, opacity !important;
+    transition: opacity 180ms cubic-bezier(.32,.72,0,1), transform 200ms cubic-bezier(.32,.72,0,1), visibility 0s linear 200ms !important;
+  }
+  .topbar.menu-open .mobile-dock-panel,
+  .topbar.mobile-dock.menu-open .mobile-dock-panel {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    transition: opacity 180ms cubic-bezier(.32,.72,0,1), transform 200ms cubic-bezier(.32,.72,0,1), visibility 0s linear !important;
+  }
+
+  /* Navigation 2-column grid */
+  .tabs,
+  .mobile-dock .tabs,
+  .mobile-dock-panel .tabs,
+  .mobile-dock .mobile-dock-panel .tabs {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+  }
+  .tabs::before,
+  .mobile-dock .tabs::before,
+  .mobile-dock-panel .tabs::before,
+  .mobile-dock .mobile-dock-panel .tabs::before {
+    display: none !important;
+  }
+  .tabs a,
+  .mobile-dock .tabs a,
+  .mobile-dock-panel .tabs a,
+  .mobile-dock .mobile-dock-panel .tabs a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: 44px !important;
+    min-width: 0 !important;
+    padding: 10px 14px !important;
+    border: 1px solid var(--dash-line) !important;
+    border-radius: 10px !important;
+    background: var(--dash-surface-raised) !important;
+    color: var(--dash-muted) !important;
+    font: 600 13px/1.2 "Be Vietnam Pro", sans-serif !important;
+    text-decoration: none !important;
+    white-space: normal !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+    transform: translateY(4px) !important;
+    transition: background 160ms, border-color 160ms, color 160ms, opacity 160ms cubic-bezier(.32,.72,0,1), transform 160ms cubic-bezier(.32,.72,0,1) !important;
+  }
+  .topbar.menu-open .tabs a,
+  .topbar.mobile-dock.menu-open .tabs a {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  .topbar.menu-open .tabs a:nth-child(1){transition-delay:10ms!important}
+  .topbar.menu-open .tabs a:nth-child(2){transition-delay:18ms!important}
+  .topbar.menu-open .tabs a:nth-child(3){transition-delay:26ms!important}
+  .topbar.menu-open .tabs a:nth-child(4){transition-delay:34ms!important}
+  .topbar.menu-open .tabs a:nth-child(5){transition-delay:42ms!important}
+  .topbar.menu-open .tabs a:nth-child(6){transition-delay:50ms!important}
+  .topbar.menu-open .tabs a:nth-child(7){transition-delay:58ms!important}
+  .topbar.menu-open .tabs a:nth-child(8){transition-delay:66ms!important}
+  .topbar.menu-open .tabs a:nth-child(9){transition-delay:74ms!important}
+  .topbar.menu-open .tabs a:nth-child(10){transition-delay:82ms!important}
+  .topbar.menu-open .tabs a:nth-child(11){transition-delay:90ms!important}
+  .topbar.menu-open .tabs a:nth-child(12){transition-delay:98ms!important}
+  .tabs a::before,
+  .mobile-dock .tabs a::before,
+  .mobile-dock-panel .tabs a::before,
+  .mobile-dock .mobile-dock-panel .tabs a::before {
+    display: none !important;
+  }
+  .tabs a:hover,
+  .mobile-dock .tabs a:hover,
+  .mobile-dock-panel .tabs a:hover,
+  .mobile-dock .mobile-dock-panel .tabs a:hover {
+    border-color: var(--dash-line) !important;
+    background: var(--dash-surface) !important;
+    color: var(--dash-ink) !important;
+  }
+  .tabs a.active,
+  .mobile-dock .tabs a.active,
+  .mobile-dock-panel .tabs a.active,
+  .mobile-dock .mobile-dock-panel .tabs a.active {
+    border-color: rgba(245, 158, 11, 0.45) !important;
+    background: rgba(245, 158, 11, 0.16) !important;
+    color: var(--dash-accent) !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    transform: translateY(0) !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-dock-scrim,
+    .mobile-dock-panel,
+    .tabs a {
+      transition: none !important;
+    }
+    .mobile-dock-panel { transform: none !important; }
+    .tabs a { transform: none !important; }
+  }
+
+  /* Account & Login in Drawer */
+  .account,
+  .mobile-dock .account,
+  .mobile-dock-panel .account,
+  .mobile-dock .mobile-dock-panel .account {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    margin-top: 16px !important;
+    padding: 16px 0 0 !important;
+    border: 0 !important;
+    border-top: 1px solid var(--dash-line) !important;
+    background: transparent !important;
+  }
+  .login,
+  .mobile-dock .login,
+  .mobile-dock-panel .login,
+  .mobile-dock .mobile-dock-panel .login {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    padding: 10px !important;
+    border: 1px solid var(--dash-accent, #f59e0b) !important;
+    border-radius: 8px !important;
+    background: var(--dash-accent, #f59e0b) !important;
+    color: #1a1200 !important;
+    font: 700 13px "Be Vietnam Pro", sans-serif !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  .login::before,
+  .mobile-dock .login::before,
+  .mobile-dock-panel .login::before,
+  .mobile-dock .mobile-dock-panel .login::before {
+    display: none !important;
+  }
+  .account-profile,
+  .mobile-dock .account-profile,
+  .mobile-dock-panel .account-profile,
+  .mobile-dock .mobile-dock-panel .account-profile {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    padding: 6px 12px !important;
+    border: 1px solid var(--dash-line) !important;
+    border-radius: 8px !important;
+    background: var(--dash-surface-raised) !important;
+    color: var(--dash-ink) !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+  .account-avatar,
+  .mobile-dock .account-avatar,
+  .mobile-dock-panel .account-avatar,
+  .mobile-dock .mobile-dock-panel .account-avatar {
+    width: 32px !important;
+    height: 32px !important;
+    flex: 0 0 32px !important;
+    border-radius: 50% !important;
+    border: 0 !important;
+    object-fit: cover !important;
+  }
+  .account-name,
+  .mobile-dock .account-name,
+  .mobile-dock-panel .account-name,
+  .mobile-dock .mobile-dock-panel .account-name {
+    display: block !important;
+    color: var(--dash-ink) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+  .logout,
+  .mobile-dock .logout,
+  .mobile-dock-panel .logout,
+  .mobile-dock .mobile-dock-panel .logout {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-height: 38px !important;
+    margin-top: 8px !important;
+    border: 1px solid var(--dash-line) !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: var(--dash-muted) !important;
+    font: 600 12px "Be Vietnam Pro", sans-serif !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+  .theme-toggle,
+  .mobile-dock .theme-toggle,
+  .mobile-dock-panel .theme-toggle,
+  .mobile-dock .mobile-dock-panel .theme-toggle {
+    display: none !important;
+  }
+
+  main { padding: 0 0 40px !important; }
+  h1 { font-size: 28px !important; }
+  .account-home { grid-template-columns: 1fr !important; }
+}
+
+main{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+
+/* Keep config controls in document flow, with an explicit mobile action stack. */
+.grid>section::before,.grid>section::after,.rpc-preview-card::before,.rpc-preview-card::after,.rpc-config-card::before,.rpc-config-card::after,.billing-box::before,.billing-box::after,.api-info::after{display:none!important}
+#page-config .config-toolbar{margin:16px 0 0!important;padding:14px 0 0!important;border-top:1px solid var(--dash-line)!important;background:transparent!important;box-shadow:none!important}
+#page-config .json-select-trigger{border-color:var(--dash-line)!important;background:var(--dash-surface-raised)!important;color:var(--dash-ink)!important}
+#page-config .json-select-trigger:hover:not(:disabled){border-color:var(--dash-accent)!important;background:var(--dash-surface-raised)!important;color:var(--dash-ink)!important}
+@media(max-width:700px){
+  #page-config .config-toolbar .rpc-config-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  #page-config .config-toolbar .rpc-config-actions .save-control{grid-column:1/-1!important}
+}
+
+/* Scene and slot controls must stay in ordinary document flow. */
+#page-config h1::before,#page-config h1::after{content:none!important;display:none!important}
+#page-config .config-slot-switcher{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:end!important;gap:10px!important;margin:0 0 16px!important;padding:12px!important;border:1px solid var(--dash-line)!important;border-radius:10px!important;background:var(--dash-surface)!important;position:relative!important;z-index:0!important}
+#page-config .config-slot-switcher label{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;margin:0!important;color:var(--dash-muted)!important}
+#page-config .config-slot-switcher select{min-width:220px!important;min-height:40px!important;margin:0!important;border:1px solid var(--dash-line)!important;background:var(--dash-input-bg)!important;color:var(--dash-ink)!important;box-shadow:none!important}
+#page-config .config-slot-switcher>span{padding:0 0 5px!important;color:var(--dash-muted)!important;font-size:12px!important}
+#page-config .scene-tabs{position:relative!important;z-index:0!important;display:flex!important;flex-wrap:wrap!important;gap:8px!important;margin:0 0 16px!important}
+#page-config .scene-tab{height:38px!important;padding:0 14px!important;border:1px solid var(--dash-line)!important;border-radius:7px!important;background:var(--dash-surface-raised)!important;color:var(--dash-ink)!important;box-shadow:none!important;transform:none!important}
+#page-config .scene-tab.active{border-color:var(--dash-accent)!important;background:var(--dash-accent)!important;color:#1a1200!important}
+#page-config .scene-tab.add{border-style:dashed!important;background:transparent!important;color:var(--dash-ink)!important}
+#page-config .scene-tab.del{border-color:rgba(239,68,68,.7)!important;background:transparent!important;color:#fca5a5!important}
+@media(max-width:700px){#page-config .config-slot-switcher{grid-template-columns:1fr!important;align-items:stretch!important}#page-config .config-slot-switcher select{min-width:0!important;width:100%!important}#page-config .scene-tab.del{width:100%!important}}
+
+
+/* Final account states: no legacy flash, no leaked admin entry. */
+.tabs a[hidden],.mobile-dock .tabs a[hidden],.mobile-dock-panel .tabs a[hidden]{display:none!important}
+button:active:not(:disabled),.login:active,.preview-buttons a:active{background:var(--dash-accent)!important;color:#1a1200!important;filter:none!important;transform:scale(.985)!important;box-shadow:none!important}
+#page-config .scene-tab.active{color:#1a1200!important}
+.account-home-status>header i{background:var(--dash-muted)!important;box-shadow:none!important}
+#page-main[data-account-state="linked"] .account-home-status>header i{background:var(--dash-signal)!important;box-shadow:0 0 0 3px rgba(34,197,94,.15)!important}
+:root[data-theme="light"]{--dash-bg:#f3f6fb;--dash-surface:#fff;--dash-surface-raised:#e8edf5;--dash-soft:#d9e1ed;--dash-ink:#101828;--dash-muted:#667085;--dash-line:rgba(16,24,40,.14);--dash-accent:#b45309;--dash-accent-hover:#92400e;--dash-signal:#16a34a;--dash-input-bg:#e8edf5;--dash-enabled-text:#15803d;--manga-paper:var(--dash-surface);--manga-paper-soft:var(--dash-surface-raised);--manga-paper-muted:var(--dash-bg);--manga-ink:var(--dash-ink);--manga-ink-soft:var(--dash-muted);--manga-gray:var(--dash-muted);--night:var(--dash-bg);--deep:var(--dash-surface);--surface:var(--dash-surface);--surface-raised:var(--dash-surface-raised);--ink:var(--dash-ink);--soft:var(--dash-muted);--muted:var(--dash-muted);--line:var(--dash-line);--cyan:var(--dash-accent);--cyan-dark:#1a1200;--violet:var(--dash-ink)}
+html[data-theme="light"]{background:var(--dash-bg)!important;color-scheme:light!important}
+.theme-toggle,.mobile-dock .theme-toggle,.mobile-dock-panel .theme-toggle,.mobile-dock .mobile-dock-panel .theme-toggle{position:fixed!important;right:18px!important;bottom:max(18px,env(safe-area-inset-bottom))!important;z-index:120!important;display:flex!important;align-items:center!important;gap:9px!important;min-height:40px!important;padding:7px 9px 7px 11px!important;border:1px solid var(--dash-line)!important;border-radius:999px!important;background:color-mix(in srgb,var(--dash-surface) 92%,transparent)!important;color:var(--dash-ink)!important;box-shadow:0 8px 24px rgba(0,0,0,.16)!important;font:700 10px/1 "Be Vietnam Pro",sans-serif!important;letter-spacing:.06em!important;transition:transform 220ms cubic-bezier(.32,.72,0,1),background-color 220ms cubic-bezier(.32,.72,0,1)!important}
+.theme-toggle:hover:not(:disabled),.theme-toggle:focus-visible{background:var(--dash-surface-raised)!important;color:var(--dash-ink)!important;filter:none!important;transform:translateY(-2px)!important}.theme-toggle-track{border:0!important;border-radius:999px!important;background:var(--dash-soft)!important}.theme-toggle-thumb{border-radius:50%!important;background:var(--dash-muted)!important}.theme-toggle[aria-pressed="true"] .theme-toggle-thumb{background:var(--dash-accent)!important}
+[data-slot-switcher][hidden]{display:none!important}
+#page-config .config-slot-switcher[hidden]{display:none!important}
+
+/* Disable legacy manga shadows on all dashboard card surfaces. */
+:where(.grid>section,.api-info,.billing-box,.rpc-preview-card,.rpc-config-card,.account-home-profile,.account-home-status,.quest-grid>section,.slot,.billing-stat,.topup-item,.deposit-limits,.payment-details div,.spotify-result,.spotify-selected-item,.admin-slot-editor,.feature-status-item,.json-dialog,.token-unbind-dialog,.payment-dialog,.web-confirm-box),:where(.grid>section,.api-info,.billing-box,.rpc-preview-card,.rpc-config-card,.account-home-profile,.account-home-status,.quest-grid>section,.slot,.billing-stat,.topup-item,.deposit-limits,.payment-details div,.spotify-result,.spotify-selected-item,.admin-slot-editor,.feature-status-item,.json-dialog,.token-unbind-dialog,.payment-dialog,.web-confirm-box):hover,:where(.grid>section,.api-info,.billing-box,.rpc-preview-card,.rpc-config-card,.account-home-profile,.account-home-status,.quest-grid>section,.slot,.billing-stat,.topup-item,.deposit-limits,.payment-details div,.spotify-result,.spotify-selected-item,.admin-slot-editor,.feature-status-item,.json-dialog,.token-unbind-dialog,.payment-dialog,.web-confirm-box):active{box-shadow:none!important;transform:none!important}
+
+/* Card surfaces stay flat in every legacy manga state. */
+.grid>section,.api-info,.billing-box,.rpc-preview-card,.rpc-config-card,.account-home-profile,.account-home-status,.quest-grid>section,.slot,.billing-stat,.topup-item,.deposit-limits,.payment-details div,.spotify-result,.spotify-selected-item,.admin-slot-editor,.feature-status-item,.json-dialog,.token-unbind-dialog,.payment-dialog,.web-confirm-box,#page-main .slot-panel[data-token-state="invalid"]{box-shadow:none!important;transform:none!important}
+.grid>section:hover,.api-info:hover,.billing-box:hover,.rpc-preview-card:hover,.rpc-config-card:hover,.account-home-profile:hover,.account-home-status:hover,.quest-grid>section:hover,.slot:hover,.billing-stat:hover,.topup-item:hover,.deposit-limits:hover,.payment-details div:hover,.spotify-result:hover,.spotify-selected-item:hover,.admin-slot-editor:hover,.feature-status-item:hover{box-shadow:none!important;transform:none!important}
+.grid>section::before,.grid>section::after,.api-info::before,.api-info::after,.billing-box::before,.billing-box::after,.rpc-preview-card::before,.rpc-preview-card::after,.rpc-config-card::before,.rpc-config-card::after,.quest-grid>section::before,.quest-grid>section::after{box-shadow:none!important}

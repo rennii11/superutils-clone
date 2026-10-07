@@ -1,0 +1,17 @@
+# Runtime and dependencies
+node_modules/
+dist/
+.worktrees/
+# Local secrets and backups
+.env.*.local
+*.bak.*
+
+# Logs and process files
+*.log
+*.pid
+
+# Local design backups
+backups/
+
+# Runtime user media
+media/

@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-14T07:17:42Z",
+  "title": "Design System: Discord Client Manga Panel",
+  "extensions": {
+    "colorMeta": {
+      "manga-paper": {
+        "role": "neutral",
+        "displayName": "Warm Manga Paper",
+        "canonical": "oklch(.985 .004 95)",
+        "tonalRamp": [
+          "oklch(.15 .004 95)",
+          "oklch(.27 .004 95)",
+          "oklch(.39 .004 95)",
+          "oklch(.51 .004 95)",
+          "oklch(.63 .004 95)",
+          "oklch(.75 .004 95)",
+          "oklch(.87 .004 95)",
+          "oklch(.95 .004 95)"
+        ]
+      },
+      "manga-paper-soft": {
+        "role": "neutral",
+        "displayName": "Soft Page Gray",
+        "canonical": "oklch(.955 .006 95)",
+        "tonalRamp": [
+          "oklch(.15 .006 95)",
+          "oklch(.27 .006 95)",
+          "oklch(.39 .006 95)",
+          "oklch(.51 .006 95)",
+          "oklch(.63 .006 95)",
+          "oklch(.75 .006 95)",
+          "oklch(.87 .006 95)",
+          "oklch(.95 .006 95)"
+        ]
+      },
+      "manga-paper-muted": {
+        "role": "neutral",
+        "displayName": "Muted Page Gray",
+        "canonical": "oklch(.91 .008 92)",
+        "tonalRamp": [
+          "oklch(.15 .008 92)",
+          "oklch(.27 .008 92)",
+          "oklch(.39 .008 92)",
+          "oklch(.51 .008 92)",
+          "oklch(.63 .008 92)",
+          "oklch(.75 .008 92)",
+          "oklch(.87 .008 92)",
+          "oklch(.95 .008 92)"
+        ]
+      },
+      "manga-ink": {
+        "role": "primary",
+        "displayName": "Editorial Ink",
+        "canonical": "oklch(.14 .009 80)",
+        "tonalRamp": [
+          "oklch(.15 .009 80)",
+          "oklch(.27 .009 80)",
+          "oklch(.39 .009 80)",
+          "oklch(.51 .009 80)",
+          "oklch(.63 .009 80)",
+          "oklch(.75 .009 80)",
+          "oklch(.87 .009 80)",
+          "oklch(.95 .009 80)"
+        ]
+      },
+      "manga-ink-soft": {
+        "role": "neutral",
+        "displayName": "Soft Editorial Ink",
+        "canonical": "oklch(.30 .012 82)",
+        "tonalRamp": [
+          "oklch(.15 .012 82)",
+          "oklch(.27 .012 82)",
+          "oklch(.39 .012 82)",
+          "oklch(.51 .012 82)",
+          "oklch(.63 .012 82)",
+          "oklch(.75 .012 82)",
+          "oklch(.87 .012 82)",
+          "oklch(.95 .012 82)"
+        ]
+      },
+      "manga-gray": {
+        "role": "neutral",
+        "displayName": "Manga Mid Gray",
+        "canonical": "oklch(.56 .008 88)",
+        "tonalRamp": [
+          "oklch(.15 .008 88)",
+          "oklch(.27 .008 88)",
+          "oklch(.39 .008 88)",
+          "oklch(.51 .008 88)",
+          "oklch(.63 .008 88)",
+          "oklch(.75 .008 88)",
+          "oklch(.87 .008 88)",
+          "oklch(.95 .008 88)"
+        ]
+      },
+      "state-warning": {
+        "role": "warning",
+        "displayName": "State Orange",
+        "canonical": "oklch(.76 .17 55)",
+        "tonalRamp": [
+          "oklch(.15 .17 55)",
+          "oklch(.27 .17 55)",
+          "oklch(.39 .17 55)",
+          "oklch(.51 .17 55)",
+          "oklch(.63 .17 55)",
+          "oklch(.75 .17 55)",
+          "oklch(.87 .17 55)",
+          "oklch(.95 .17 55)"
+        ]
+      },
+      "state-success": {
+        "role": "success",
+        "displayName": "State Green",
+        "canonical": "oklch(.82 .14 135)",
+        "tonalRamp": [
+          "oklch(.15 .14 135)",
+          "oklch(.27 .14 135)",
+          "oklch(.39 .14 135)",
+          "oklch(.51 .14 135)",
+          "oklch(.63 .14 135)",
+          "oklch(.75 .14 135)",
+          "oklch(.87 .14 135)",
+          "oklch(.95 .14 135)"
+        ]
+      },
+      "state-danger": {
+        "role": "danger",
+        "displayName": "State Red",
+        "canonical": "oklch(.75 .15 25)",
+        "tonalRamp": [
+          "oklch(.15 .15 25)",
+          "oklch(.27 .15 25)",
+          "oklch(.39 .15 25)",
+          "oklch(.51 .15 25)",
+          "oklch(.63 .15 25)",
+          "oklch(.75 .15 25)",
+          "oklch(.87 .15 25)",
+          "oklch(.95 .15 25)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Manga Chapter Display",
+        "purpose": "Tiêu đề chương và màn hình."
+      },
+      "body": {
+        "displayName": "Product Body",
+        "purpose": "Nội dung thao tác."
+      },
+      "label": {
+        "displayName": "Panel Label",
+        "purpose": "Nhãn panel, trường và trạng thái."
+      },
+      "mono": {
+        "displayName": "Configuration Mono",
+        "purpose": "Input, textarea và JSON."
+      }
+    },
+    "shadows": [
+      {
+        "name": "control-ink",
+        "value": "4px 4px 0 var(--manga-ink)",
+        "purpose": "Nút, nav và tài khoản."
+      },
+      {
+        "name": "panel-ink",
+        "value": "7px 7px 0 var(--manga-ink)",
+        "purpose": "Panel chức năng."
+      },
+      {
+        "name": "page-ink",
+        "value": "10px 10px 0 var(--manga-ink)",
+        "purpose": "Khung workspace."
+      }
+    ],
+    "motion": [
+      {
+        "name": "press",
+        "value": "120ms cubic-bezier(.22,1,.36,1)",
+        "purpose": "Phản hồi control."
+      },
+      {
+        "name": "panel-enter",
+        "value": "180ms cubic-bezier(.22,1,.36,1)",
+        "purpose": "Hiện trang; tắt với reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "700px"
+      },
+      {
+        "name": "navigation-collapse",
+        "value": "1200px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Nút nền mực và bóng lệch cứng.",
+      "html": "<button class=\"ds-btn-primary\">LƯU CONFIG</button>",
+      "css": ".ds-btn-primary{min-height:42px;padding:0 13px;border:3px solid var(--manga-ink);border-radius:0;background:var(--manga-ink);color:var(--manga-paper);font:900 12px \"Segoe UI Variable\",\"Segoe UI\",sans-serif;box-shadow:4px 4px 0 var(--manga-ink);transition:all 120ms cubic-bezier(.22,1,.36,1)}.ds-btn-primary:hover{background:var(--manga-paper);color:var(--manga-ink);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--manga-ink)}.ds-btn-primary:focus-visible{outline:3px dashed var(--manga-ink);outline-offset:4px}.ds-btn-primary:active{transform:translate(4px,4px);box-shadow:none}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Nút phụ nền giấy, không gradient.",
+      "html": "<button class=\"ds-btn-secondary\">ĐÓNG</button>",
+      "css": ".ds-btn-secondary{min-height:42px;padding:0 13px;border:3px solid var(--manga-ink);border-radius:0;background:var(--manga-paper);color:var(--manga-ink);font:900 12px \"Segoe UI Variable\",\"Segoe UI\",sans-serif;box-shadow:4px 4px 0 var(--manga-ink)}.ds-btn-secondary:hover{background:var(--manga-ink);color:var(--manga-paper)}.ds-btn-secondary:focus-visible{outline:3px dashed var(--manga-ink);outline-offset:4px}.ds-btn-secondary:active{transform:translate(4px,4px);box-shadow:none}"
+    },
+    {
+      "name": "Configuration Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Input mono với focus dạng bóng mực.",
+      "html": "<input class=\"ds-input\" value=\"RICH_PRESENCE\" aria-label=\"RPC mode\">",
+      "css": ".ds-input{padding:11px;border:2px solid var(--manga-ink);border-radius:0;background:var(--manga-paper);color:var(--manga-ink);font:650 13px \"Cascadia Mono\",Consolas,monospace;box-shadow:3px 3px 0 var(--manga-paper-muted)}.ds-input:hover{background:var(--manga-paper-soft)}.ds-input:focus-visible{outline:0;box-shadow:4px 4px 0 var(--manga-ink)}"
+    },
+    {
+      "name": "Contents Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Mục lục manga với active đảo màu.",
+      "html": "<a class=\"ds-nav-item ds-active\" href=\"#\">◆ Rich Presence</a>",
+      "css": ".ds-nav-item{display:flex;min-height:42px;align-items:center;padding:9px 10px;border:2px solid transparent;background:var(--manga-paper);color:var(--manga-ink);font:800 12px \"Segoe UI Variable\",\"Segoe UI\",sans-serif;text-decoration:none}.ds-nav-item:hover,.ds-nav-item.ds-active{border-color:var(--manga-ink);background:var(--manga-ink);color:var(--manga-paper);box-shadow:4px 4px 0 var(--manga-ink)}.ds-nav-item:focus-visible{outline:3px dashed var(--manga-ink);outline-offset:4px}"
+    },
+    {
+      "name": "Manga Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Panel có nhãn thứ tự và bóng lệch cứng.",
+      "html": "<section class=\"ds-panel\"><span class=\"ds-panel-label\">PANEL 01 / INPUT</span><strong>Nội dung panel</strong></section>",
+      "css": ".ds-panel{padding:18px;border:3px solid var(--manga-ink);border-radius:1px;background:var(--manga-paper);color:var(--manga-ink);box-shadow:7px 7px 0 var(--manga-ink)}.ds-panel-label{display:block;width:max-content;margin:-18px 0 16px -18px;padding:7px 10px 6px;background:var(--manga-ink);color:var(--manga-paper);font:900 9px \"Segoe UI Variable\",\"Segoe UI\",sans-serif;letter-spacing:.15em}"
+    },
+    {
+      "name": "Success Status",
+      "kind": "chip",
+      "refersTo": "status-success",
+      "description": "Chip thành công giữ xanh và nhãn chữ.",
+      "html": "<span class=\"ds-status-success\">THÀNH CÔNG</span>",
+      "css": ".ds-status-success{display:inline-block;padding:5px 8px;border:2px solid oklch(.55 .1 140/.5);border-radius:0;background:var(--manga-paper);color:oklch(.82 .14 135);font:800 10px \"Segoe UI Variable\",\"Segoe UI\",sans-serif}.ds-status-success:focus-visible{outline:3px dashed var(--manga-ink);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Monochrome Manga Control Page",
+    "overview": "Monochrome Manga Panel UI biến workspace thành một trang truyện điều khiển hiện đại. Panel bất đối xứng thể hiện đúng thứ tự thao tác; khoảng trắng tạo rãnh trang; nét mực cứng tạo phân cấp mà không che khuất dữ liệu.\n\nHệ thống ưu tiên tốc độ cấu hình. Phong cách manga chỉ xuất hiện ở khung, nhãn chương, nhãn panel và phản hồi tương tác. Avatar, ảnh preview, timestamp và trạng thái thanh toán giữ màu chức năng.",
+    "keyCharacteristics": [
+      "Khung panel bất đối xứng theo quan hệ nội dung.",
+      "Nền giấy sáng, nét mực tối và bóng lệch cứng.",
+      "Sans condensed cho tiêu đề, sans hệ thống cho thao tác, mono cho dữ liệu.",
+      "Màu chỉ xuất hiện khi mang ý nghĩa dữ liệu hoặc trạng thái."
+    ],
+    "rules": [
+      {
+        "name": "Functional Color Rule",
+        "body": "Màu ngoài đen trắng chỉ được dùng cho dữ liệu preview, avatar, timestamp và trạng thái nghiệp vụ.",
+        "section": "colors"
+      },
+      {
+        "name": "Modern Manga Type Rule",
+        "body": "Tiêu đề phải dùng sans condensed; serif cổ điển bị cấm trong giao diện tác vụ.",
+        "section": "typography"
+      },
+      {
+        "name": "Hard Ink Rule",
+        "body": "Độ sâu chỉ dùng bóng lệch cứng, không blur và không glassmorphism.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do dùng rãnh panel 18px trên desktop và 14px trên mobile.",
+      "Do giữ thứ tự nhập liệu, preview rồi JSON trên màn hình cấu hình.",
+      "Do giữ focus dạng viền nét đứt 3px và vùng bấm tối thiểu 42px.",
+      "Do giữ màu gốc cho avatar, ảnh preview, timestamp và trạng thái thanh toán."
+    ],
+    "donts": [
+      "Don't dùng giao diện cổ hủ.",
+      "Don't dùng bố cục card-grid đồng đều, lặp lại.",
+      "Don't dùng glassmorphism và gradient trang trí.",
+      "Don't dùng các khuôn mẫu dễ nhận ra là website do AI tạo.",
+      "Don't dùng màu làm dấu hiệu trạng thái duy nhất."
+    ]
+  }
+}
