@@ -36,7 +36,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN || ''
 const CLIENT_ID = process.env.DISCORD_CLIENT_ID || '1532814751594319964'
 const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || ''
 const REDIRECT_URI = process.env.DISCORD_REDIRECT_URI || ''
-const ADMIN_USER_ID = '631286646246998039'
+const ADMIN_IDS = new Set((process.env.ADMIN_IDS || "").split(",").map(id => id.trim()).filter(id => id.length >= 17 && id.length <= 20 && Number.isSafeInteger(Number(id))))
 const oauthReady = Boolean(BOT_TOKEN && CLIENT_SECRET && REDIRECT_URI)
 const BILLING_DB_FILE = process.env.BILLING_DB_FILE || 'billing.sqlite'
 const SESSION_DB_FILE = process.env.SESSION_DB_FILE || 'sessions.sqlite'
@@ -288,7 +288,7 @@ let showcaseCache: {expires:number; value:unknown}|null=null
 async function loadShowcase() {
   const now=Date.now()
   if(showcaseCache&&showcaseCache.expires>now)return showcaseCache.value
-  const showcaseFolder=(await identityFolders(MULTI_CONFIG_DIR,ADMIN_USER_ID,'active'))[0]?.folder
+  const showcaseFolder=ADMIN_IDS.size ? (await identityFolders(MULTI_CONFIG_DIR,[...ADMIN_IDS][0],"active"))[0]?.folder : undefined
   const root=showcaseFolder?join(MULTI_CONFIG_DIR,showcaseFolder):MULTI_CONFIG_DIR
   const rawConfig=await readFile(join(root,'scene.json'),'utf8').then(JSON.parse).catch(()=>({})) as any
   const identity=await readFile(join(root,'identity.json'),'utf8').then(JSON.parse).catch(()=>({})) as {userId?:string}
@@ -430,8 +430,8 @@ async function availableFolder(base: string,preferred: string,userId: string) {
 async function cleanupEmptyDir(root: string) { const entries=await readdir(root).catch(()=>null);if(entries?.length===0)await rm(root,{recursive:true,force:true}).catch(()=>{}) }
 async function restoreText(path: string,value: string|null) { if(value===null)await rm(path,{force:true});else await writeFile(path,value,{mode:0o600}) }
 function session(req: IncomingMessage) { const id=ck(req,'web_session')||'', value=sessions.get(id); if(!value||value.expires<=Date.now()){if(id){sessions.delete(id);sessionByUser.forEach((s,u)=>{if(s===id)sessionByUser.delete(u)});void storage.deleteSession(id)}return} return value }
-function admin(x:Session|undefined){return x?.id===ADMIN_USER_ID&&x.mode!=='user'}
-function canSwitch(x:Session|undefined){return x?.id===ADMIN_USER_ID}
+function admin(x:Session|undefined){return Boolean(x&&ADMIN_IDS.has(x.id)&&x.mode!=="user")}
+function canSwitch(x:Session|undefined){return Boolean(x&&ADMIN_IDS.has(x.id))}
 function isObject(value: unknown): value is Record<string, unknown> { return Boolean(value)&&typeof value==='object'&&!Array.isArray(value) }
 function tokenInput(value: unknown) { const token=typeof value==='string'?value.trim():'';return token.startsWith('"')&&token.endsWith('"')?token.slice(1,-1).trim():token }
 function valid(file: ConfigFile, data: unknown) {
